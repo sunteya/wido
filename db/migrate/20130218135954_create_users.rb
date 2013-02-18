@@ -6,8 +6,6 @@ class CreateUsers < ActiveRecord::Migration
       t.timestamps
     end
     
-    change_table :users do |t|
-      t.index :slug
-    end
+    add_index :links, :slug
   end
 end
