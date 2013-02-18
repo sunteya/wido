@@ -4,6 +4,8 @@ gem 'rails', '3.2.12'
 gem 'rails-i18n', '~> 0.7.2'
 gem 'pg'
 
+gem 'strong_parameters', '~> 0.2.0'
+
 # Theme
 gem 'jquery-rails', '~> 2.2.1'
 gem 'bootstrap-sass', '~> 2.3.0.0'
