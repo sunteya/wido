@@ -1,14 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Wido2</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <title>WIDO 2</title>
+  <%= stylesheet_link_tag    "workspace", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div id="surface">
+	<div id="header" class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a class="brand" href="#">WIDO 2</a>
+			
+			<form class="navbar-form pull-left">
+				<input type="text" class="input-medium search-query">
+			</form>
+			
+			<div class="btn-group">
+				<a class="btn" data-toggle="modal" href="#linkFormModal"><i class="icon-link"></i></a>
+				<a class="btn disabled" data-toggle="modal" href="#noteFormModal"><i class="icon-file-alt"></i></a>
+			</div>
+<!-- 			
+			<div class="nav-collapse collapse">
+				<p class="navbar-text pull-right">
+					Logged in as <a href="#" class="navbar-link">Username</a>
+				</p>
+				<ul class="nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</div> -->
+		</div>
+	</div>
+	</div>
+	
+	<div class="container-fluid">
+		<div id="sidebar">
+			<h3>整理</h3>
+			<ul class="nav nav-list">
+				<li class="active">
+					<%= link_to workspace_inbox_path do %>
+						<i class="icon-inbox"></i> Inbox
+					<% end %>
+				</li>
+				<li class="">
+					<%= link_to workspace_inbox_path do %>
+						<i class="icon-edit"></i> Review
+					<% end %>
+				</li>
+			</ul>
+			
+			<h3>列表</h3>
+		</div>
+		
+		<div id="content">
+			<%= yield %>
+		</div>
+	</div>
+</div>
 
-<%= yield %>
+<div id="linkFormModal" class="modal hide fade" tabindex="-1" role="dialog">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>Create Link</h3>
+	</div>
+	<div class="modal-body">
+	<%= simple_form_for([ :workspace, current_user.links.new ]) do |f| %>
+			<div class="form-inputs">
+				<%= f.input :title %>
+				<%= f.input :url %>
+			</div>
+	</div>
+	<div class="modal-footer">
+			<button class="btn" data-dismiss="modal">Close</button>
+			<%= f.button :submit, class: 'btn btn-primary' %>
+	</div>
+	<% end %>
+</div>
 
+<script>
+$(function() {
+	$("#linkFormModal form").on("submit", function(event) {
+		event.preventDefault();
+		var form = this;
+		$.ajax(form.action, {
+			type: form.method,
+			data: $(form).serializeArray(),
+			dataType: "json",
+			success: function(data) {
+				$(form).closest(".modal").modal('hide');
+				location.reload(); // TODO
+			}
+		});
+	});
+})
+</script>
 </body>
 </html>

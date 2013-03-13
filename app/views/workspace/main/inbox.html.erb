@@ -1,0 +1,36 @@
+<div class="panel panel-aside">
+<!-- 
+	<header>
+		<%#= link_to "new link", new_workspace_link_path %>
+		<input /> search
+	</header>
+-->
+	
+	<ul class="list">
+		<% @list.links.order("created_at DESC").each do |link| %>
+		<li>
+			<hgroup>
+				<h4>
+					<%= link_to link.url do %>
+						<% if link.title.blank? %>
+							<%= link.url %>
+						<% else %>
+							<%= link.title %>
+						<% end %>
+					<% end %>
+				</h4>
+			</hgroup>
+			<p>
+				<span class="label">rails</span>
+				<span class="label">devel</span>
+				<span class="label">中文测试</span>
+			</p>
+		</li>
+		<% end %>
+	</ul>
+	
+</div>
+
+<div class="panel panel-main">
+	
+</div>

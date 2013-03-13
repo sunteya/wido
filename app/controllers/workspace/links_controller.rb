@@ -1,5 +1,6 @@
 class Workspace::LinksController < Workspace::BaseController
-
+  skip_before_filter :verify_authenticity_token
+  
   def index
     @links = current_user.links.all
 
@@ -8,7 +9,7 @@ class Workspace::LinksController < Workspace::BaseController
       format.json { render json: @links }
     end
   end
-
+  
   def show
     @link = current_user.links.find(params[:id])
 
@@ -32,12 +33,13 @@ class Workspace::LinksController < Workspace::BaseController
   end
 
   def create
-    @link = current_user.links.new(link_params)
+    @list = current_user.inbox
+    @link = @list.links.new(link_params)
 
     respond_to do |format|
       if @link.save
         format.html { redirect_to [ :workspace, @link ], notice: 'Link was successfully created.' }
-        format.json { render json: @link, status: :created, location: @link }
+        format.json { render json: @link, status: :created, location: [ :workspace, @link ] }
       else
         format.html { render action: "new" }
         format.json { render json: @link.errors, status: :unprocessable_entity }
@@ -68,6 +70,11 @@ class Workspace::LinksController < Workspace::BaseController
       format.json { head :no_content }
     end
   end
+  
+  def bookmarklet
+    
+  end
+
   
 protected
   def link_params
