@@ -14,9 +14,11 @@
 class Link < ActiveRecord::Base
   belongs_to :user
   belongs_to :list
+  acts_as_taggable
   
-  validates :list_id, :presence => true
-  validates :url, :presence => true
+  validates :list,  presence: true
+  validates :title, presence: true
+  validates :url,   presence: true
   
   before_save :assign_user_by_list
   

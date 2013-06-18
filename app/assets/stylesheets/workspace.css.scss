@@ -1,7 +1,6 @@
-
 @import "compass";
 @import "bootstrap";
-@import "_font-awesome";
+@import "font-awesome";
 
 html, body {
 	max-height: 100%;
@@ -115,6 +114,22 @@ $primary-border-color: #c4c3ce;
 	overflow: auto;
 }
 
+.panel-main {
+	@include box-sizing(border-box);
+	padding: 5px 20px;
+	overflow: auto;
+
+	.form-inputs {
+		padding-left: 20px;
+	}
+
+	.form-actions {
+		.btn-danger {
+			margin-left: 20px;
+		}
+	}
+}
+
 .list {
 	margin: 0;
 	padding: 0;
@@ -122,10 +137,15 @@ $primary-border-color: #c4c3ce;
 	
 	li {
 		padding: 0.4em 0.8em;
+		position: relative;
 		
 		border: 0 solid #d5d5db;
 		border-bottom-width: 1px;
 		
+		&[data-url] {
+			// cursor: pointer;
+		}
+
 		&:first-child {
 			border-top-width: 1px;
 		}
@@ -145,8 +165,29 @@ $primary-border-color: #c4c3ce;
 				}
 			}
 		}
+
+		.actions {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			width: 20px;
+			background: #fff;
+			padding: 5px 10px;
+			/*display: none;*/
+			opacity: 0;
+			@include transition(opacity 0.5s);
+		}
+
+		&:hover {
+			.actions {
+				/*display: block;*/
+				opacity: 1;
+				@include transition(opacity 0.5s);
+			}
+		}
 		
-		p {
+		.labels {
 			margin: 0;
 			line-height: 1;
 			

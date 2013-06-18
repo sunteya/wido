@@ -1,6 +1,26 @@
-<h1>Editing link</h1>
+<%= render :partial => "workspace/shared/list", object: @collection %>
 
-<%= render 'form' %>
+<div class="panel panel-main">
+	<%= render :partial => "tabs", locals: { tab: :edit } %>
 
-<%= link_to 'Show', [ :workspace, @link ] %> |
-<%= link_to 'Back', workspace_links_path %>
+
+	<h1>Edit Link</h1>
+
+	<%= simple_form_for @link, url: workspace_link_path(@link), class: 'form-horizontal' do |f| %>
+		<%= render :partial => "form", locals: { f: f } %>
+
+		<div class="form-actions">
+			<%= f.button :submit, class: 'btn btn-primary' %>
+			<%= link_to "Back", workspace_link_path(@link), class: 'btn' %>
+			<%= link_to workspace_link_path(@link), method: :delete,
+							confirm: "are you sure?", class: 'btn btn-danger' do %>
+			<i class="icon-trash"></i> Delete Link
+			<% end %>
+
+			<div class="pull-right">
+			</div>
+		</div>
+	<% end %>
+	</div>
+
+</div>

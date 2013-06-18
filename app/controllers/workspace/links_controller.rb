@@ -1,84 +1,65 @@
 class Workspace::LinksController < Workspace::BaseController
-  skip_before_filter :verify_authenticity_token
-  
-  def index
-    @links = current_user.links.all
+  before_filter :find_collection
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @links }
-    end
+  def index
+    redirect_to workspace_root_path
   end
   
   def show
-    @link = current_user.links.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @link }
-    end
+    @link = @collection.links.find(params[:id])
   end
 
   def new
-    @link = current_user.links.new
+    @link = @collection.links.scoped.new
+  end
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @link }
+  def create
+    @link = @collection.links.scoped.new(link_params)
+
+    if @link.save
+      flash[:notice] = 'Link was successfully created.'
+      redirect_to workspace_links_path
+    else
+      render "new"
     end
   end
 
   def edit
-    @link = current_user.links.find(params[:id])
-  end
-
-  def create
-    @list = current_user.inbox
-    @link = @list.links.new(link_params)
-
-    respond_to do |format|
-      if @link.save
-        format.html { redirect_to [ :workspace, @link ], notice: 'Link was successfully created.' }
-        format.json { render json: @link, status: :created, location: [ :workspace, @link ] }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @link.errors, status: :unprocessable_entity }
-      end
-    end
+    @link = @collection.links.find(params[:id])
   end
 
   def update
-    @link = current_user.links.find(params[:id])
+    @link = @collection.links.find(params[:id])
 
-    respond_to do |format|
-      if @link.update_attributes(link_params)
-        format.html { redirect_to [ :workspace, @link ], notice: 'Link was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @link.errors, status: :unprocessable_entity }
-      end
+    if @link.update_attributes(link_params)
+      flash[notice] = 'Link was successfully updated.'
+      redirect_to workspace_link_path(@link)
+    else
+      render "edit"
     end
   end
 
   def destroy
-    @link = current_user.links.find(params[:id])
+    @link = @collection.links.find(params[:id])
     @link.destroy
 
-    respond_to do |format|
-      format.html { redirect_to workspace_links_url }
-      format.json { head :no_content }
-    end
+    redirect_to workspace_links_path
   end
   
-  def bookmarklet
+  # def bookmarklet
     
-  end
+  # end
 
   
 protected
   def link_params
-    params.require(:link).permit(:title, :url)
+    params.require(:link).permit(:title, :url, :tag_list)
+  end
+
+  def find_collection
+    # if params[:collection] == "index"
+    @collection = current_user.inbox
+    # end
   end
   
 end

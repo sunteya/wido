@@ -1,5 +1,10 @@
-<p id="notice"><%= notice %></p>
+<%= render :partial => "workspace/shared/list", object: @collection %>
 
+<div class="panel panel-main">
+	<%= render :partial => "tabs", locals: { tab: :show } %>
 
-<%= link_to 'Edit', edit_workspace_link_path(@link) %> |
-<%= link_to 'Back', workspace_links_path %>
+	<hgroup>
+		<h4><%= @link.title %></h4>
+		<p><%= link_to @link.url %></p>
+	</hgroup>
+</div>

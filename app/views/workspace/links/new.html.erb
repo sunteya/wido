@@ -1,5 +1,14 @@
-<h1>New link</h1>
+<%= render :partial => "workspace/shared/list", object: @collection %>
 
-<%= render 'form' %>
+<div class="panel panel-main">
+	<h1>new link</h1>
 
-<%= link_to 'Back', workspace_links_path %>
+	<%= simple_form_for @link, url: workspace_links_path do |f| %>
+		<%= render :partial => "form", locals: { f: f } %>
+
+		<div class="form-actions">
+			<%= f.button :submit, class: 'btn btn-primary' %>
+			<%= link_to 'Back', workspace_links_path, class: 'btn' %>
+		</div>
+	<% end %>
+</div>

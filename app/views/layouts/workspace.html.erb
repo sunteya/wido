@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>WIDO 2</title>
-  <%= stylesheet_link_tag    "workspace", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+	<title>WIDO 2</title>
+	<%= stylesheet_link_tag    "workspace", :media => "all" %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
 </head>
 <body>
 <div id="surface">
@@ -24,7 +24,8 @@
 			</form>
 			
 			<div class="btn-group">
-				<a class="btn" data-toggle="modal" href="#linkFormModal"><i class="icon-link"></i></a>
+				<!-- <a class="btn" data-toggle="modal" href="#link-form-modal"><i class="icon-link"></i></a> -->
+				<a class="btn" data-toggle="modal" href="<%= new_workspace_link_path %>"><i class="icon-link"></i></a>
 				<a class="btn disabled" data-toggle="modal" href="#noteFormModal"><i class="icon-file-alt"></i></a>
 			</div>
 <!-- 			
@@ -67,41 +68,8 @@
 	</div>
 </div>
 
-<div id="linkFormModal" class="modal hide fade" tabindex="-1" role="dialog">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">×</button>
-		<h3>Create Link</h3>
-	</div>
-	<div class="modal-body">
-	<%= simple_form_for([ :workspace, current_user.links.new ]) do |f| %>
-			<div class="form-inputs">
-				<%= f.input :title %>
-				<%= f.input :url %>
-			</div>
-	</div>
-	<div class="modal-footer">
-			<button class="btn" data-dismiss="modal">Close</button>
-			<%= f.button :submit, class: 'btn btn-primary' %>
-	</div>
-	<% end %>
-</div>
+<% @link = Link.new %>
+<%#= render :partial => "workspace/links/form" %>
 
-<script>
-$(function() {
-	$("#linkFormModal form").on("submit", function(event) {
-		event.preventDefault();
-		var form = this;
-		$.ajax(form.action, {
-			type: form.method,
-			data: $(form).serializeArray(),
-			dataType: "json",
-			success: function(data) {
-				$(form).closest(".modal").modal('hide');
-				location.reload(); // TODO
-			}
-		});
-	});
-})
-</script>
 </body>
 </html>
