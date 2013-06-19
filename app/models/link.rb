@@ -17,8 +17,8 @@ class Link < ActiveRecord::Base
   acts_as_taggable
   
   validates :list,  presence: true
-  validates :title, presence: true
   validates :url,   presence: true
+  validates :title, presence: true
   
   before_save :assign_user_by_list
   

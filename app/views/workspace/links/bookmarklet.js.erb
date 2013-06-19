@@ -1,12 +1,34 @@
 var authentication_token = "123123";
+
 var title = document.title;
 var url = location.href;
 var body = document.body.innerHTML;
 
-
-var content = "link[url]=" + encodeURIComponent(location.href)
+var content = [];
+content.push("link[url]=" + encodeURIComponent(location.href));
+// content.push("link[title]=" + encodeURIComponent(title));
+var params = content.join("&");
 
 var xhr = new XMLHttpRequest();
-xhr.open("POST", "http://lvh.me:3000/workspace/links", true);
-xhr.setRequestHeader("Content-Type","application/json");
-xhr.send(content);
+xhr.onreadystatechange = function(event) {
+	if (this.readyState == 4) {
+		if (this.status == 201) { // created
+			var data = eval('(' + this.responseText + ')');
+			console.log(data);
+
+		} else if (this.status == 422) { // validate failed
+			var data = eval('(' + this.responseText + ')');
+			console.log(data)
+			console.log(this)
+			alert("failed");
+		} else {
+			// other error.
+			alert("error");
+		}
+	}
+};
+
+xhr.open("POST", "http://localhost:3000/workspace/links", true);
+xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xhr.setRequestHeader("Accept","application/json");
+xhr.send(params);
