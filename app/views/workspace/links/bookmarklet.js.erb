@@ -6,7 +6,7 @@ var body = document.body.innerHTML;
 
 var content = [];
 content.push("link[url]=" + encodeURIComponent(location.href));
-// content.push("link[title]=" + encodeURIComponent(title));
+content.push("link[title]=" + encodeURIComponent(title));
 var params = content.join("&");
 
 var xhr = new XMLHttpRequest();
@@ -20,7 +20,7 @@ xhr.onreadystatechange = function(event) {
 			var data = eval('(' + this.responseText + ')');
 			console.log(data)
 			console.log(this)
-			alert("failed");
+			alert("Validate failed");
 		} else {
 			// other error.
 			alert("error");
@@ -28,7 +28,8 @@ xhr.onreadystatechange = function(event) {
 	}
 };
 
-xhr.open("POST", "http://localhost:3000/workspace/links", true);
+
+xhr.open("POST", "<%= workspace_collation_links_url('inbox') %>", true);
 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 xhr.setRequestHeader("Accept","application/json");
 xhr.send(params);

@@ -1,4 +1,4 @@
-<%= render :partial => "workspace/shared/list", object: @collection %>
+<%= render :partial => "workspace/shared/list", locals: { collection: @collection } %>
 
 <div class="panel panel-main">
 	<%= render :partial => "tabs", locals: { tab: :show } %>

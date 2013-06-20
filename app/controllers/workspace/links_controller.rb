@@ -5,7 +5,7 @@ class Workspace::LinksController < Workspace::BaseController
   skip_before_filter :verify_authenticity_token, only: :create
 
   def index
-    redirect_to workspace_root_path
+    redirect_to collection_route(@collection).root_path
   end
   
   def show
@@ -27,7 +27,7 @@ class Workspace::LinksController < Workspace::BaseController
         }
 
         format.json {
-          render json: @link, status: :created, location: [ :workspace, @link ]
+          render json: @link, status: :created, location: collection_route(@collection).link_path(@link)
         }
       else
         format.html { render action: "new" }
@@ -45,7 +45,7 @@ class Workspace::LinksController < Workspace::BaseController
 
     if @link.update_attributes(link_params)
       flash[notice] = 'Link was successfully updated.'
-      redirect_to workspace_link_path(@link)
+      redirect_to collection_route(@collection).link_path(@link)
     else
       render "edit"
     end
@@ -55,11 +55,10 @@ class Workspace::LinksController < Workspace::BaseController
     @link = @collection.links.find(params[:id])
     @link.destroy
 
-    redirect_to workspace_links_path
+    redirect_to collection_route(@collection).root_path
   end
   
   def bookmarklet
-    
   end
   
 protected
@@ -68,9 +67,9 @@ protected
   end
 
   def find_collection
-    # if params[:collection] == "index"
-    @collection = current_user.inbox
-    # end
+    if params[:collation_id] == "inbox"
+      @collection = current_user.inbox
+    end
   end
 
   def allow_cross_domain_access

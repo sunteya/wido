@@ -25,11 +25,11 @@
 			
 			<div class="btn-group">
 				<!-- <a class="btn" data-toggle="modal" href="#link-form-modal"><i class="icon-link"></i></a> -->
-				<a class="btn" data-toggle="modal" href="<%= new_workspace_link_path %>"><i class="icon-link"></i></a>
+				<a class="btn" data-toggle="modal" href="<%= new_workspace_collation_link_path('inbox') %>"><i class="icon-link"></i></a>
 				<a class="btn disabled" data-toggle="modal" href="#noteFormModal"><i class="icon-file-alt"></i></a>
 			</div>
-<!-- 			
-			<div class="nav-collapse collapse">
+
+<!-- 			<div class="nav-collapse collapse">
 				<p class="navbar-text pull-right">
 					Logged in as <a href="#" class="navbar-link">Username</a>
 				</p>
@@ -39,8 +39,8 @@
 					<li><a href="#contact">Contact</a></li>
 				</ul>
 			</div> -->
-					<%= link_to "Bookmarklet", "javascript: function swfe13f() { var d = document; var b = d.body; var z = d.createElement('scr'+'ipt'); var l = d.location; z.setAttribute('src', l.protocol + '//localhost:3000/workspace/links/bookmarklet.js' + '?' + new Date().getTime()); b.appendChild(z) }; swfe13f();" %>
-
+			
+			<%= link_to "Bookmarklet", "javascript: function swfe13f() { var d = document; var b = d.body; var z = d.createElement('scr'+'ipt'); var l = d.location; z.setAttribute('src', '#{bookmarklet_workspace_collation_links_url('inbox', format: 'js')}' + '?' + new Date().getTime()); b.appendChild(z) }; swfe13f();" %>
 		</div>
 
 	</div>
@@ -51,12 +51,12 @@
 			<h3>整理</h3>
 			<ul class="nav nav-list">
 				<li class="active">
-					<%= link_to workspace_inbox_path do %>
+					<%= link_to workspace_collation_path('inbox') do %>
 						<i class="icon-inbox"></i> Inbox
 					<% end %>
 				</li>
 				<li class="">
-					<%= link_to workspace_inbox_path do %>
+					<%= link_to workspace_collation_path('review') do %>
 						<i class="icon-edit"></i> Review
 					<% end %>
 				</li>
@@ -70,9 +70,6 @@
 		</div>
 	</div>
 </div>
-
-<% @link = Link.new %>
-<%#= render :partial => "workspace/links/form" %>
 
 </body>
 </html>

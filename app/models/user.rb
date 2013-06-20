@@ -13,6 +13,11 @@ class User < ActiveRecord::Base
   has_many :lists
   
   def inbox
-    self.lists.where(syscode: 'inbox').first_or_create
+    collation = Collation.new
+    collation.user = self
+    collation.id   = 'inbox'
+    collation
   end
+
+
 end

@@ -5,10 +5,10 @@
 		<input /> search
 	</header>
 -->
-	
+
 	<ul class="list">
-		<% list.links.order("created_at DESC").each do |link| %>
-		<li class="link" data-url="<%= workspace_link_path(link) %>">
+		<% collection.links.order("created_at DESC").each do |link| %>
+		<li class="link" data-url="<%= collection_route(collection).link_path(link) %>">
 			<hgroup>
 				<h4>
 					<%= link_to link.url do %>
@@ -22,8 +22,7 @@
 				<% end %>
 			</p>
 			<div class="actions">
-				<%= link_to edit_workspace_link_path(link) do %><i class="icon-pencil"></i><% end %>
-				<!-- <%= link_to "#" do %><i class="icon-link"></i><% end %> -->
+				<%= link_to collection_route(collection).edit_link_path(link) do %><i class="icon-pencil"></i><% end %>
 			</div>
 		</li>
 		<% end %>

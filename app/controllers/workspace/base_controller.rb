@@ -7,4 +7,8 @@ protected
   end
   helper_method :current_user
   
+  def collection_route(collection)
+    collection.to_route(self)
+  end
+  helper_method :collection_route
 end
