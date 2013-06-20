@@ -1,0 +1,31 @@
+<div class="panel panel-aside">
+<!-- 
+	<header>
+		<%#= link_to "new link", new_workspace_link_path %>
+		<input /> search
+	</header>
+-->
+
+	<ul class="list">
+		<% collection.links.order("created_at DESC").each do |link| %>
+		<li class="link" data-url="<%= collection_route(collection).link_path(link) %>">
+			<hgroup>
+				<h4>
+					<%= link_to link.url do %>
+						<%= link.title.present? ? link.title : link.url %>
+					<% end %>
+				</h4>
+			</hgroup>
+			<p class="labels">
+				<% link.tags.each do |tag| %>
+					<span class="label"><%= tag.name %></span>
+				<% end %>
+			</p>
+			<div class="actions">
+				<%= link_to collection_route(collection).edit_link_path(link) do %><i class="icon-pencil"></i><% end %>
+			</div>
+		</li>
+		<% end %>
+	</ul>
+	
+</div>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WIDO 2</title>
+	<%= stylesheet_link_tag    "workspace", :media => "all" %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
+</head>
+<body>
+<div id="surface">
+	<div id="header" class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a class="brand" href="#">WIDO 2</a>
+			
+			<form class="navbar-form pull-left">
+				<input type="text" class="input-medium search-query">
+			</form>
+			
+			<div class="btn-group">
+				<!-- <a class="btn" data-toggle="modal" href="#link-form-modal"><i class="icon-link"></i></a> -->
+				<a class="btn" data-toggle="modal" href="<%= new_workspace_collation_link_path('inbox') %>"><i class="icon-link"></i></a>
+				<a class="btn disabled" data-toggle="modal" href="#noteFormModal"><i class="icon-file-alt"></i></a>
+			</div>
+
+<!-- 			<div class="nav-collapse collapse">
+				<p class="navbar-text pull-right">
+					Logged in as <a href="#" class="navbar-link">Username</a>
+				</p>
+				<ul class="nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</div> -->
+			
+			<%= link_to "Bookmarklet", "javascript: function swfe13f() { var d = document; var b = d.body; var z = d.createElement('scr'+'ipt'); var l = d.location; z.setAttribute('src', '#{bookmarklet_workspace_collation_links_url('inbox', format: 'js')}' + '?' + new Date().getTime()); b.appendChild(z) }; swfe13f();" %>
+		</div>
+
+	</div>
+	</div>
+	
+	<div class="container-fluid">
+		<div id="sidebar">
+			<h3>整理</h3>
+			<ul class="nav nav-list">
+				<li class="active">
+					<%= link_to workspace_collation_path('inbox') do %>
+						<i class="icon-inbox"></i> Inbox
+					<% end %>
+				</li>
+				<li class="">
+					<%= link_to workspace_collation_path('review') do %>
+						<i class="icon-edit"></i> Review
+					<% end %>
+				</li>
+			</ul>
+			
+			<h3>列表</h3>
+		</div>
+		
+		<div id="content">
+			<%= yield %>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
