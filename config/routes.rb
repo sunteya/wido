@@ -11,6 +11,10 @@ Wido2::Application.routes.draw do
       end
     end
 
+    scope "bookmarklets", as: 'bookmarklet', controller: 'bookmarklets' do
+      get "add_link"
+    end
+
     # resources :lists, concerns: :linkable
     resources :collations, path: '', only: :show, constraints: { id: /(inbox|review)/ } do
       concerns :linkable
