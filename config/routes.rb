@@ -1,4 +1,7 @@
 Wido2::Application.routes.draw do
+  devise_for :users, controllers: { sessions: "users/sessions" }
+  root to: "main#root"
+
   namespace :workspace do
     root to: "main#root"
 
