@@ -9,5 +9,6 @@ class CreateLinks < ActiveRecord::Migration
     end
     
     add_index :links, :user_id
+    add_index :links, [ :user_id, :url ]
   end
 end

@@ -3,5 +3,7 @@ class AddListReferencesToLinks < ActiveRecord::Migration
     change_table :links do |t|
       t.references :list
     end
+
+    add_index :links, :list_id
   end
 end
