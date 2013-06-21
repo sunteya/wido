@@ -29,18 +29,22 @@
 				<a class="btn disabled" data-toggle="modal" href="#noteFormModal"><i class="icon-file-alt"></i></a>
 			</div>
 
-<!-- 			<div class="nav-collapse collapse">
-				<p class="navbar-text pull-right">
-					Logged in as <a href="#" class="navbar-link">Username</a>
-				</p>
-				<ul class="nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#contact">Contact</a></li>
-				</ul>
-			</div> -->
+			<%= link_to "Bookmarklet", "javascript: function swfe13f() { var d = document; var b = d.body; var z = d.createElement('scr'+'ipt'); var l = d.location; z.setAttribute('src', '#{workspace_bookmarklet_add_link_url('js')}' + '&' + new Date().getTime()); b.appendChild(z) }; swfe13f();" %>
+
+			<ul class="nav pull-right">
+				<li class="navbar-text">Logged in as </li>
+				<li class="dropdown">
+					<a data-toggle="dropdown" class="dropdown-toggle" href="#"><%= current_user.email %> <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li class="divider"></li>
+						<li><%= link_to "Sign Out", destroy_user_session_path, method: 'delete' %></li>
+					</ul>
+				</li>
+			</ul>
 			
-			<%= link_to "Bookmarklet", "javascript: function swfe13f() { var d = document; var b = d.body; var z = d.createElement('scr'+'ipt'); var l = d.location; z.setAttribute('src', '#{bookmarklet_workspace_collation_links_url('inbox', format: 'js')}' + '?' + new Date().getTime()); b.appendChild(z) }; swfe13f();" %>
 		</div>
 
 	</div>

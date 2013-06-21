@@ -1,7 +1,7 @@
 class Workspace::LinksController < Workspace::BaseController
   before_filter :find_collection
 
-  before_filter :allow_cross_domain_access, only: :create
+  # before_filter :allow_cross_domain_access, only: :create
   skip_before_filter :verify_authenticity_token, only: :create
 
   def index
@@ -13,7 +13,7 @@ class Workspace::LinksController < Workspace::BaseController
   end
 
   def new
-    @link = @collection.links.scoped.new
+    @link = @collection.links.scoped.new(link_params)
   end
 
   def create
@@ -58,9 +58,6 @@ class Workspace::LinksController < Workspace::BaseController
     redirect_to collection_route(@collection).root_path
   end
   
-  def bookmarklet
-  end
-  
 protected
   def link_params
     params.require(:link).permit(:title, :url, :tag_list)
@@ -72,10 +69,10 @@ protected
     end
   end
 
-  def allow_cross_domain_access
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "POST"
-    # response.headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
-  end
+  # def allow_cross_domain_access
+  #   response.headers["Access-Control-Allow-Origin"] = "*"
+  #   response.headers["Access-Control-Allow-Methods"] = "POST"
+  #   # response.headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
+  # end
   
 end
