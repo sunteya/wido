@@ -16,10 +16,3 @@ jQuery ->
 				$(form).closest(".modal").modal('hide')
 				# location.reload() # TODO
 
-	# event.stopPropagation().
-	$(".list").on "click", "li", (event)->
-		return if event.target.tagName == "A"
-
-		url = $(this).data("url");
-		location.href = url
-

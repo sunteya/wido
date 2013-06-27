@@ -8,10 +8,10 @@
 
 	<ul class="list">
 		<% collection.links.order("created_at DESC").each do |link| %>
-		<li class="link" data-url="<%= collection_route(collection).link_path(link) %>">
+		<li class="link">
 			<hgroup>
 				<h4>
-					<%= link_to link.url do %>
+					<%= link_to collection_route(collection).link_path(link) do %>
 						<%= link.title.present? ? link.title : link.url %>
 					<% end %>
 				</h4>
@@ -21,8 +21,11 @@
 					<span class="label"><%= tag.name %></span>
 				<% end %>
 			</p>
+
+			<div class="actions-wrapper">
 			<div class="actions">
-				<%= link_to collection_route(collection).edit_link_path(link) do %><i class="icon-pencil"></i><% end %>
+				<%= link_to link.url do %><i class="icon-external-link"></i><% end %>
+			</div>
 			</div>
 		</li>
 		<% end %>

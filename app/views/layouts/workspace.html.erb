@@ -29,9 +29,12 @@
 				<a class="btn disabled" data-toggle="modal" href="#noteFormModal"><i class="icon-file-alt"></i></a>
 			</div>
 
-			<%= link_to "Bookmarklet", "javascript: function swfe13f() { var d = document; var b = d.body; var z = d.createElement('scr'+'ipt'); var l = d.location; z.setAttribute('src', '#{workspace_bookmarklet_add_link_url('js')}' + '&' + new Date().getTime()); b.appendChild(z) }; swfe13f();" %>
 
 			<ul class="nav pull-right">
+				<li>
+					<%= link_to "> WIDO", "javascript: function swfe13f() { var d = document; var b = d.body; var z = d.createElement('scr'+'ipt'); var l = d.location; z.setAttribute('src', '#{workspace_bookmarklet_add_link_url('js')}' + '&' + new Date().getTime()); b.appendChild(z) }; swfe13f();" %>
+				</li>
+				<li class="divider-vertical"></li>
 				<li class="navbar-text">Logged in as </li>
 				<li class="dropdown">
 					<a data-toggle="dropdown" class="dropdown-toggle" href="#"><%= current_user.email %> <b class="caret"></b></a>

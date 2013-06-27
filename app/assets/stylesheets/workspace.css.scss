@@ -166,24 +166,29 @@ $primary-border-color: #c4c3ce;
 			}
 		}
 
-		.actions {
+
+		.actions-wrapper {
 			position: absolute;
 			top: 0;
 			right: 0;
 			bottom: 0;
-			width: 20px;
-			background: #fff;
-			padding: 5px 10px;
-			/*display: none;*/
+			width: 50px;
+			@include background(linear-gradient(left, rgba(255,255,255,0), #fff 50%));
 			opacity: 0;
-			@include transition(opacity 0.5s);
+			@include transition(opacity 0.4s);
+		}
+
+		.actions {
+			position: absolute;
+			top: 50%;
+			margin-top: -9px;
+			right: 12px;
 		}
 
 		&:hover {
-			.actions {
-				/*display: block;*/
+			.actions-wrapper {
 				opacity: 1;
-				@include transition(opacity 0.5s);
+				@include transition(opacity 0.8s);
 			}
 		}
 		
