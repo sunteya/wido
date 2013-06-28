@@ -70,6 +70,15 @@
 			</ul>
 			
 			<h3>列表</h3>
+			<ul class="nav nav-list">
+				<% current_user.lists.customable.each do |list| %>
+				<li><%= link_to list.name, workspace_list_path(list) %></li>
+				<% end %>
+			</ul>
+
+			<footer>
+				<%= link_to new_workspace_list_path do %><i class="icon-plus"></i><% end %>
+			</footer>
 		</div>
 		
 		<div id="content">

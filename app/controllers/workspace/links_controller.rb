@@ -60,19 +60,17 @@ class Workspace::LinksController < Workspace::BaseController
   
 protected
   def link_params
-    params.require(:link).permit(:title, :url, :tag_list)
+    params.require(:link).permit(:title, :url, :tag_list, :list_id)
   end
 
   def find_collection
     if params[:collation_id] == "inbox"
       @collection = current_user.inbox
     end
-  end
 
-  # def allow_cross_domain_access
-  #   response.headers["Access-Control-Allow-Origin"] = "*"
-  #   response.headers["Access-Control-Allow-Methods"] = "POST"
-  #   # response.headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
-  # end
+    if params[:list_id]
+      @collection = current_user.lists.find(params[:list_id])
+    end
+  end
   
 end

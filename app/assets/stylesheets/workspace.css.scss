@@ -28,6 +28,7 @@ html, body {
 	#content {
 		height: 100%;
 		margin-left: 220px;
+		overflow: auto;
 		
 		.panel {
 			height: 100%;
@@ -98,6 +99,13 @@ $primary-border-color: #c4c3ce;
 				border-width: 1px 0;
 			}
 		}
+	}
+
+	footer {
+		display: block;
+		position: absolute;
+		bottom: 0.2em;
+		padding-left: 0.8em;
 	}
 }
 
@@ -173,7 +181,7 @@ $primary-border-color: #c4c3ce;
 			right: 0;
 			bottom: 0;
 			width: 50px;
-			@include background(linear-gradient(left, rgba(255,255,255,0), #fff 50%));
+			@include background(linear-gradient(left, rgba(255,255,255,0), #fff 40%));
 			opacity: 0;
 			@include transition(opacity 0.4s);
 		}
