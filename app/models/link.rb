@@ -25,4 +25,8 @@ class Link < ActiveRecord::Base
   def assign_user_by_list
     self.user = self.list.user if self.list_id_changed?
   end
+
+  def collection
+    self.list
+  end
 end

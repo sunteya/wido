@@ -45,7 +45,12 @@ class Workspace::LinksController < Workspace::BaseController
 
     if @link.update_attributes(link_params)
       flash[notice] = 'Link was successfully updated.'
-      redirect_to collection_route(@collection).link_path(@link)
+
+      if @collection != @link.collection
+        redirect_to collection_route(@collection).links_path
+      else
+        redirect_to collection_route(@collection).link_path(@link)
+      end
     else
       render "edit"
     end
