@@ -6,7 +6,6 @@ gem 'rails-i18n', '~> 0.7.2'
 # gem 'routing_concerns', '~> 0.1.0'
 
 # Model
-# gem 'strong_parameters', '~> 0.2.0'
 gem 'acts-as-taggable-on', '~> 2.4.1'
 gem 'devise', '~> 3.0.0.rc'
 gem 'devise-i18n', '~> 0.8.5'
