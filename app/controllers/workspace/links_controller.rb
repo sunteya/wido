@@ -45,7 +45,12 @@ class Workspace::LinksController < Workspace::BaseController
 
     if @link.update_attributes(link_params)
       flash[notice] = 'Link was successfully updated.'
-      redirect_to collection_route(@collection).link_path(@link)
+
+      if @collection != @link.collection
+        redirect_to collection_route(@collection).links_path
+      else
+        redirect_to collection_route(@collection).link_path(@link)
+      end
     else
       render "edit"
     end
@@ -60,19 +65,17 @@ class Workspace::LinksController < Workspace::BaseController
   
 protected
   def link_params
-    params.require(:link).permit(:title, :url, :tag_list)
+    params.require(:link).permit(:title, :url, :tag_list, :list_id)
   end
 
   def find_collection
     if params[:collation_id] == "inbox"
       @collection = current_user.inbox
     end
-  end
 
-  # def allow_cross_domain_access
-  #   response.headers["Access-Control-Allow-Origin"] = "*"
-  #   response.headers["Access-Control-Allow-Methods"] = "POST"
-  #   # response.headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
-  # end
+    if params[:list_id]
+      @collection = current_user.lists.find(params[:list_id])
+    end
+  end
   
 end
