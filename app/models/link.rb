@@ -20,10 +20,11 @@ class Link < ActiveRecord::Base
   validates :url,   presence: true
   validates :title, presence: true
   
-  before_save :assign_user_by_list
+  after_initialize :ensure_assign_user_by_list
+  before_save :ensure_assign_user_by_list
   
-  def assign_user_by_list
-    self.user = self.list.user if self.list_id_changed?
+  def ensure_assign_user_by_list
+    self.user ||= self.list.user if self.list_id_changed?
   end
 
   def collection

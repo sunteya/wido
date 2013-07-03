@@ -65,7 +65,7 @@ class Workspace::LinksController < Workspace::BaseController
   
 protected
   def link_params
-    params.require(:link).permit(:title, :url, :tag_list, :list_id)
+    params.require(:link).permit(:title, :url, :tag_list, :list_id) if params[:link]
   end
 
   def find_collection
