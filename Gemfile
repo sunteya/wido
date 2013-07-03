@@ -19,7 +19,7 @@ gem 'jquery-rails', '~> 3.0.1'
 gem 'turbolinks', '~> 1.2'
 
 gem 'bootstrap-sass', '~> 2.3.2'
-gem 'font-awesome-sass-rails', '~> 3.0.2.1'
+gem 'font-awesome-sass-rails', '~> 3.0.2.2'
 
 # Assets
 gem 'compass-rails', git: 'https://github.com/Compass/compass-rails.git', branch: 'rails4-hack'
