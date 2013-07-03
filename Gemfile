@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.0.0'
 gem 'pg', '~> 0.15'
 gem 'rails-i18n', '~> 0.7.2'
-# gem 'routing_concerns', '~> 0.1.0'
 
 # Model
 gem 'acts-as-taggable-on', '~> 2.4.1'
