@@ -11,4 +11,5 @@
 /db/schema.rb
 
 /config/database.yml
+/config/settings.local.yml
 /Gemfile.lock
