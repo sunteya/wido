@@ -8,6 +8,8 @@ gem 'rails-i18n', '~> 0.7.2'
 gem 'acts-as-taggable-on', '~> 2.4.1'
 gem 'devise', '~> 3.0.0.rc'
 gem 'devise-i18n', '~> 0.8.5'
+gem "omniauth-google-oauth2"
+gem 'fume-settable'
 
 # View
 gem 'simple_form', '~> 3.0.0.rc'
