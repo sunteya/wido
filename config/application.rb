@@ -32,10 +32,10 @@ module Wido2
 
     config.assets.precompile += [ 'workspace.*' ]
 
-    config.middleware.insert_before Warden::Manager, Rack::Cors do
+    config.middleware.insert_before Warden::Manager, Rack::Cors, logger: Rails.logger do
       allow do
         origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post, :options]
+        resource '/workspace/inbox/links', :headers => :any, :methods => [:post]
       end
     end
   end
