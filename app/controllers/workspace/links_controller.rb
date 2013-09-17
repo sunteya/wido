@@ -23,7 +23,7 @@ class Workspace::LinksController < Workspace::BaseController
       if @link.save
         format.html {
           flash[:notice] = 'Link was successfully created.'
-          redirect_to workspace_links_path
+          redirect_to collection_route(@collection).link_path(@link)
         }
 
         format.json {
