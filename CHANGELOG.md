@@ -2,10 +2,12 @@
 
 + 使用 Google 帐号登录
 + 链接基本管理
-+ 使用 Bookmarklet 添加链接.
+
++ 使用 Bookmarklet 添加链接
++ 解决 chrome https bookmarklet 无法使用问题.
++ 完善跨于请求安全问题
 
 ## TODO:
 
-+ 完善跨于请求安全问题
 + 列表基本管理
 + 链接关联列表
