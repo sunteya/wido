@@ -29,10 +29,29 @@
 				<a class="btn disabled" data-toggle="modal" href="#noteFormModal"><i class="icon-file-alt"></i></a>
 			</div>
 
+<% save_to_wido_script = capture do %>
+function fw323() {
+	var d = document;
+	var b = d.body,
+		z = d.createElement('script'),
+		l = d.location,
+		t = new Date().getTime();
 
+	z.setAttribute('src', '<%= workspace_bookmarklet_add_link_url('js') %>' + '&' + t);
+	z.onerror = function() {
+		var c = [
+			"link[url]=" + encodeURIComponent(l.href),
+			"link[title]=" + encodeURIComponent(d.title)
+		];
+		l.href = "<%= new_workspace_collation_link_url('inbox') %>" + "?" + c.join("&");
+	};
+	b.appendChild(z);
+};
+fw323();
+<% end %>
 			<ul class="nav pull-right">
 				<li>
-					<%= link_to "> WIDO", "javascript: function swfe13f() { var d = document; var b = d.body; var z = d.createElement('scr'+'ipt'); var l = d.location; z.setAttribute('src', '#{workspace_bookmarklet_add_link_url('js')}' + '&' + new Date().getTime()); b.appendChild(z) }; swfe13f();" %>
+					<%= link_to "> WIDO", %Q!javascript: #{save_to_wido_script.gsub(/[\n\t]+/, '')}! %>
 				</li>
 				<li class="divider-vertical"></li>
 				<li class="navbar-text">Logged in as </li>
