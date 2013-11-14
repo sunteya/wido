@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 4.0.1'
-gem 'pg', '~> 0.15'
+gem 'pg', '~> 0.17'
 gem 'rails-i18n', '~> 0.7.2'
 
 # Model
