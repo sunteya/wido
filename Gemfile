@@ -26,7 +26,7 @@ gem 'font-awesome-sass-rails', '~> 3.0.2.2'
 
 # Assets
 gem 'compass-rails', "~> 2.0.alpha.0"
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.1'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'therubyracer', :platforms => :ruby
 gem 'uglifier', '>= 1.3.0'
