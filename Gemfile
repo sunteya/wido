@@ -12,7 +12,7 @@ gem "omniauth-google-oauth2", "~> 0.2.1"
 gem "fume-settable", "~> 0.0.2"
 
 # View
-gem 'simple_form', '~> 3.0.0.rc'
+gem 'simple_form', '~> 3.0.0'
 gem 'fume-nav', '~> 0.0.2'
 gem 'rack-cors', '~> 0.2.8'
 
