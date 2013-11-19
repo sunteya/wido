@@ -13,7 +13,7 @@
 			<%= f.button :submit, class: 'btn btn-primary' %>
 			<%= link_to "Back", collection_route(@collection).link_path(@link), class: 'btn' %>
 			<%= link_to collection_route(@collection).link_path(@link), method: :delete,
-							confirm: "are you sure?", class: 'btn btn-danger' do %>
+							data: { confirm: "are you sure?" }, class: 'btn btn-danger' do %>
 			<i class="icon-trash"></i> Delete Link
 			<% end %>
 
