@@ -13,6 +13,10 @@ class Collation
     user.lists.where(syscode: id).first_or_create
   end
 
+  def include?(object)
+    (object.list.nil? && id == "index") || object.list.syscode == self.id
+  end
+
   def to_route(view)
     CollationRoute.new(view, self)
   end

@@ -23,6 +23,10 @@ class List < ActiveRecord::Base
     self.name.present? ? self.name : self.syscode
   end
 
+  def include?(object)
+    object.list == self
+  end
+
   def to_route(view)
     ListRoute.new(view, self)
   end
@@ -49,6 +53,18 @@ class List < ActiveRecord::Base
 
     def edit_link_path(link)
       view.edit_workspace_list_link_path(collation.id, link)
+    end
+
+    def articles_path
+      view.workspace_list_articles_path(collation.id)
+    end
+
+    def article_path(article)
+      view.workspace_list_article_path(collation.id, article)
+    end
+
+    def edit_article_path(article)
+      view.edit_workspace_list_article_path(collation.id, article)
     end
   end
 

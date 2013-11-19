@@ -35,11 +35,11 @@ class Workspace::ArticlesController < Workspace::BaseController
 
     if @article.update_attributes(article_params)
       flash[notice] = 'Article was successfully updated.'
-
-      if @collection != @article.collection
-        redirect_to collection_route(@collection).articles_path
-      else
+      
+      if @collection.include?(@article)
         redirect_to collection_route(@collection).article_path(@article)
+      else
+        redirect_to collection_route(@collection).articles_path
       end
     else
       render "edit"
