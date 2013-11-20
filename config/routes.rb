@@ -12,6 +12,8 @@ Wido2::Application.routes.draw do
       resources :links, constraints: { id: /\d+/ } do
         get "bookmarklet", on: :collection
       end
+      
+      resources :articles, constraints: { id: /\d+/ }
     end
 
     scope "bookmarklets", as: 'bookmarklet', controller: 'bookmarklets' do
@@ -23,5 +25,9 @@ Wido2::Application.routes.draw do
     end
 
     resources :lists, concerns: :linkable
+
+    resources :articles do
+      resources :attachments
+    end
   end
 end

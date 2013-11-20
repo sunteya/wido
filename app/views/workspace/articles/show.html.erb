@@ -1,0 +1,10 @@
+<%= render :partial => "workspace/shared/list", locals: { collection: @collection } %>
+
+<div class="panel panel-main">
+	<%= render :partial => "tabs", locals: { tab: :show } %>
+
+	<hgroup>
+		<h4><%= @article.title %></h4>
+		<p><%= @article.content %></p>
+	</hgroup>
+</div>

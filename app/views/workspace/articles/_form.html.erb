@@ -1,0 +1,12 @@
+<div class="form-inputs">
+	<%= f.input :title %>
+	<%= f.input :slug %>
+	<%= f.association :list, collection: f.object.user.lists, include_blank: false %>
+	<%= f.input :content %>
+
+	<%= f.fields_for :attachments do |builder| %>
+		<%= render "attachment_fields", f: builder %>
+	<% end %>
+	
+	<%= link_to_add_fields "增加附件", f, :attachments %>
+</div>

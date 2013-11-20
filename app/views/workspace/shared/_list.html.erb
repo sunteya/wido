@@ -7,6 +7,29 @@
 -->
 
 	<ul class="list">
+		<% collection.articles.order("created_at DESC").each do |article| %>
+		<li class="article">
+			<hgroup>
+				<h4>
+					<%= link_to collection_route(collection).article_path(article) do %>
+						<%= article.title.present? ? article.title : article.url %>
+					<% end %>
+				</h4>
+			</hgroup>
+			<p class="labels">
+				<% article.tags.each do |tag| %>
+					<span class="label"><%= tag.name %></span>
+				<% end %>
+			</p>
+
+			<div class="actions-wrapper">
+			<div class="actions">
+			</div>
+			</div>
+		</li>
+		<% end %>
+
+
 		<% collection.links.order("created_at DESC").each do |link| %>
 		<li class="link">
 			<hgroup>
