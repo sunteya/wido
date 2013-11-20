@@ -19,13 +19,21 @@ module ApplicationHelper
   end
 
   def article_path(article)
-    slug = article.slug.blank? ? "#{article.id}" : "#{article.id}-#{article.slug}"
-    pattern_article_path(author: article.user.slug, article: slug)
+    path_for_article(article)
   end
 
   def article_url(article)
-    slug = article.slug.blank? ? "#{article.id}" : "#{article.id}-#{article.slug}"
-    pattern_article_url(author: article.user.slug, article: slug)
+    path_for_article(article, true)
+  end
+
+  def path_for_article(article, with_host = false)
+    slug = article.slug.blank? ? "#{article.id}" : "#{article.slug}"
+
+    if with_host
+      pattern_article_url(author: article.user.slug, article: slug)
+    else
+      pattern_article_path(author: article.user.slug, article: slug)
+    end
   end
 
   # Returns an ordidinal date eg July 22 2007 -> July 22nd 2007
