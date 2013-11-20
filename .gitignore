@@ -13,3 +13,4 @@
 /config/database.yml
 /config/settings.local.yml
 /Gemfile.lock
+/public/system/

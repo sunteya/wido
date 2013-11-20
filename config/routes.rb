@@ -25,5 +25,9 @@ Wido2::Application.routes.draw do
     end
 
     resources :lists, concerns: :linkable
+
+    resources :articles do
+      resources :attachments
+    end
   end
 end

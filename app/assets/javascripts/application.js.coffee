@@ -18,3 +18,16 @@ jQuery ->
 				$(form).closest(".modal").modal('hide')
 				# location.reload() # TODO
 
+	$('form').on 'click', '.add_fields', (event) ->
+		event.preventDefault()
+		time = new Date().getTime()
+		regexp = new RegExp($(this).data('id'), 'g')
+		content = $(this).data('fields').replace(regexp, time)
+
+		appendToTarget = $(this).data('append-to');
+		return $(content).appendTo(appendToTarget) if appendToTarget
+
+		insertBeforeTarget = $(this).data("insert-before");
+		return $(content).insertBefore(insertBeforeTarget) if insertBeforeTarget
+
+		$(this).before(content)

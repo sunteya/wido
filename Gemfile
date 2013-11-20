@@ -10,6 +10,7 @@ gem 'devise', '~> 3.0.0.rc'
 gem 'devise-i18n', '~> 0.8.5'
 gem "omniauth-google-oauth2", "~> 0.2.1"
 gem "fume-settable", "~> 0.0.2"
+gem "carrierwave", "~> 0.9.0"
 
 # View
 gem 'simple_form', '~> 3.0.0'

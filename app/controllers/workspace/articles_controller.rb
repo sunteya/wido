@@ -55,7 +55,7 @@ class Workspace::ArticlesController < Workspace::BaseController
   
 protected
   def article_params
-    params.require(:article).permit(:title, :slug, :tag_list, :list_id, :content) if params[:article]
+    params.require(:article).permit(:title, :slug, :tag_list, :list_id, :content, attachments_attributes: [ :id, :file, :_destroy ]) if params[:article]
   end
 
   def find_collection
