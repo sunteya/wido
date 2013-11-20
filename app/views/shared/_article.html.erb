@@ -26,8 +26,8 @@
 	</p>
 </header>
 
+<% parsed_content = article_content(article) %>
 <% if index %>
-	<% parsed_content = explain(article.content) %>
 	<div class="entry-content"><%=raw excerpt parsed_content %></div>
 	<% if has_excerpt parsed_content %>
 		<footer>
@@ -35,5 +35,5 @@
 		</footer>
 	<% end %>
 <% else %>
-	<div class="entry-content">{{ content }}</div>
+	<div class="entry-content"><%=raw parsed_content %></div>
 <% end %>

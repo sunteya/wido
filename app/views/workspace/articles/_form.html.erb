@@ -9,6 +9,7 @@
 	<%= f.input :content %>
 
 	<%= f.fields_for :attachments do |builder| %>
+		<label><%= builder.object.original_filename %></label>
 		<%= render "attachment_fields", f: builder %>
 	<% end %>
 	

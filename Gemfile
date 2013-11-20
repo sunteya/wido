@@ -18,6 +18,8 @@ gem 'simple_form', '~> 3.0.0'
 gem 'fume-nav', '~> 0.0.2'
 gem 'rack-cors', '~> 0.2.8'
 gem 'kramdown', '~> 1.2.0'
+gem 'nokogiri', '~> 1.6.0'
+gem 'pygments.rb', '~> 0.5.4'
 
 # Theme
 gem 'jquery-rails', '~> 3.0.1'

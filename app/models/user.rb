@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
 
   has_many :links
   has_many :lists
+  has_many :articles
 
   before_save :ensure_authentication_token
 
