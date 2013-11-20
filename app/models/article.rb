@@ -8,6 +8,8 @@ class Article < ActiveRecord::Base
 
   after_initialize :ensure_assign_user_by_list
   before_save :ensure_assign_user_by_list
+
+  validates :published_at, presence: true
   
   def ensure_assign_user_by_list
     self.user ||= self.list.user if self.list_id_changed?
