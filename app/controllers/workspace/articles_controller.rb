@@ -16,13 +16,11 @@ class Workspace::ArticlesController < Workspace::BaseController
   def create
     @article = @collection.articles.scoped.new(article_params)
 
-    respond_to do |format|
-      if @article.save
-        flash[:notice] = 'Article was successfully created.'
-        redirect_to collection_route(@collection).article_path(@article)
-      else
-        render action: "new"
-      end
+    if @article.save
+      flash[:notice] = 'Article was successfully created.'
+      redirect_to collection_route(@collection).article_path(@article)
+    else
+      render action: "new"
     end
   end
 
