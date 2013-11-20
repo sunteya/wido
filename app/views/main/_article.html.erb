@@ -11,8 +11,10 @@
 	</p>
 	
 	<p class="meta">
-		<time datetime="<%= article.created_at.iso8601 %>" pubdate data-updated="true"><%= ordinalize(article.created_at) %></time>
-		<!-- <time datetime="<%= article.updated_at.iso8601 %>" class="updated">Updated <%= ordinalize(article.updated_at) %></time> -->
+		<time datetime="<%= article.published_at.iso8601 %>" pubdate <% if article.revised_at %> data-updated="true"<% end %>><%= ordinalize(article.published_at) %></time>
+		<% if article.revised_at %>
+			<time datetime="<%= article.revised_at.iso8601 %>" class="updated">Updated <%= ordinalize(article.revised_at) %></time>
+		<% end %>
 
 		<span class="byline author vcard">by <a class="fn"><%= article.author.slug %></a></span>
 

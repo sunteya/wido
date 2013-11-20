@@ -3,8 +3,16 @@
 <div class="panel panel-main">
 	<%= render :partial => "tabs", locals: { tab: :show } %>
 
-	<hgroup>
-		<h4><%= @article.title %></h4>
-		<p><%= @article.content %></p>
-	</hgroup>
+	<article>
+		<hgroup>
+			<h1><%= @article.title %></h1>
+			<p class="tags">
+				<% @article.tags.each do |tag| %>
+					<span class="label"><%= tag %></span>
+				<% end %>
+			</p>
+		</hgroup>
+
+		<%=raw explain(@article.content) %>
+	</article>
 </div>
