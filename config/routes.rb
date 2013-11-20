@@ -30,4 +30,7 @@ Wido2::Application.routes.draw do
       resources :attachments
     end
   end
+
+  get "/:author/:article" => "articles#show", as: "pattern_article"
+  get "/atom" => "main#atom"
 end

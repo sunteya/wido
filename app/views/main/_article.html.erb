@@ -1,0 +1,37 @@
+<header>
+	<% if index %>
+		<h1 class="entry-title"><%= link_to article.title, article_path(article) %></h1>
+	<% else %>
+		<h1 class="entry-title"><%= article.title %></h1>
+	<% end %>
+	<p class="tags">
+		<% article.tags.each do |tag| %>
+			<span class="label"><%= tag %></span>
+		<% end %>
+	</p>
+	
+	<p class="meta">
+		<time datetime="<%= article.created_at.iso8601 %>" pubdate data-updated="true"><%= ordinalize(article.created_at) %></time>
+		<!-- <time datetime="<%= article.updated_at.iso8601 %>" class="updated">Updated <%= ordinalize(article.updated_at) %></time> -->
+
+		<span class="byline author vcard">by <a class="fn"><%= article.author.slug %></a></span>
+
+		<!--
+		{% if site.disqus_short_name and page.comments != false and post.comments != false and site.disqus_show_comment_count == true %}
+		 | <a href="{% if index %}{{ root_url }}{{ post.url }}{% endif %}#disqus_thread">Comments</a>
+		{% endif %}
+		-->
+	</p>
+</header>
+
+<% if index %>
+	<% parsed_content = explain(article.content) %>
+	<div class="entry-content"><%=raw excerpt parsed_content %></div>
+	<% if has_excerpt parsed_content %>
+		<footer>
+			<%= link_to "阅读全部 →", article_path(article), class: "more", rel: "full-article" %>
+		</footer>
+	<% end %>
+<% else %>
+	<div class="entry-content">{{ content }}</div>
+<% end %>

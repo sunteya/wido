@@ -2,6 +2,7 @@
 	<%= f.input :title %>
 	<%= f.input :slug %>
 	<%= f.association :list, collection: f.object.user.lists, include_blank: false %>
+	<%= f.input :tag_list %>
 	<%= f.input :content %>
 
 	<%= f.fields_for :attachments do |builder| %>

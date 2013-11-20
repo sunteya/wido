@@ -16,4 +16,8 @@ class Article < ActiveRecord::Base
   def collection
     self.list
   end
+
+  def author
+    self.user
+  end
 end

@@ -1,0 +1,32 @@
+---
+layout: default
+---
+
+<section class="blog-index">
+	<% @articles.each do |article| %>
+		<article>
+			<%= render :partial => "article", object: article, locals: { index: true } %>
+		</article>
+	<% end %>
+
+	<div class="pagination">
+		<%= link_to_next_page @articles, "← Older", class: "prev" %>
+		<a href="/archives">Archives</a>
+		<%= link_to_previous_page @articles, "Newer →", class: "next" %>
+	</div>
+</section>
+
+<% content_for :sidebar do %>
+<aside>
+	<section>
+		<h3>Recent Posts</h3>
+		<ul id="recent_posts" class="nav nav-tabs nav-stacked">
+			<% Article.reorder("created_at DESC").limit(10).each do |article| %>
+				<li class="post">
+					<%= link_to article.title, article_path(article) %>
+				</li>
+			<% end %>
+		</ul>
+	</section>
+</aside>
+<% end %>
