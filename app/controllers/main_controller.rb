@@ -1,5 +1,5 @@
 class MainController < ApplicationController
   def root
-    redirect_to workspace_root_path
+    @articles = Article.page(params[:page]).per(5)
   end
 end
