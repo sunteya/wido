@@ -16,13 +16,11 @@ class Workspace::ArticlesController < Workspace::BaseController
   def create
     @article = @collection.articles.scoped.new(article_params)
 
-    respond_to do |format|
-      if @article.save
-        flash[:notice] = 'Article was successfully created.'
-        redirect_to collection_route(@collection).article_path(@article)
-      else
-        render action: "new"
-      end
+    if @article.save
+      flash[:notice] = 'Article was successfully created.'
+      redirect_to collection_route(@collection).article_path(@article)
+    else
+      render action: "new"
     end
   end
 
@@ -55,7 +53,7 @@ class Workspace::ArticlesController < Workspace::BaseController
   
 protected
   def article_params
-    params.require(:article).permit(:title, :slug, :tag_list, :list_id, :content, attachments_attributes: [ :id, :file, :_destroy ]) if params[:article]
+    params.require(:article).permit(:title, :slug, :tag_list, :list_id, :published_at, :revised_at, :disqus_identifier, :content, attachments_attributes: [ :id, :file, :_destroy ]) if params[:article]
   end
 
   def find_collection

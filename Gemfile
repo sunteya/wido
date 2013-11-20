@@ -11,11 +11,15 @@ gem 'devise-i18n', '~> 0.8.5'
 gem "omniauth-google-oauth2", "~> 0.2.1"
 gem "fume-settable", "~> 0.0.2"
 gem "carrierwave", "~> 0.9.0"
+gem "kaminari", "~> 0.14.1"
 
 # View
 gem 'simple_form', '~> 3.0.0'
 gem 'fume-nav', '~> 0.0.2'
 gem 'rack-cors', '~> 0.2.8'
+gem 'kramdown', '~> 1.2.0'
+gem 'nokogiri', '~> 1.6.0'
+gem 'pygments.rb', '~> 0.5.4'
 
 # Theme
 gem 'jquery-rails', '~> 3.0.1'
@@ -24,6 +28,7 @@ gem 'jquery-turbolinks', '~> 1.0.0'
 
 gem 'bootstrap-sass', '~> 2.3.2'
 gem 'font-awesome-sass-rails', '~> 3.0.2.2'
+
 
 # Assets
 gem 'compass-rails', "~> 2.0.alpha.0"

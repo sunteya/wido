@@ -1,0 +1,22 @@
+<article role="article">
+	<header>
+		<h1 class="entry-title"><%= @bundle[:name] %></h1>
+	</header>
+	
+	<div class="blog-archives">
+	<% year = nil %>
+	<% @articles.each do |article| %>
+		<% date = article.revised_at || article.published_at %>
+		<% if year != date.year %>
+			<% year = date.year %>
+			<h2><%= year %></h2>
+		<% end %>
+		
+		<article>
+			<%= render partial: "shared/archive_article", locals: { article: article } %>
+		</article>
+	<% end %>
+	</div>
+</article>
+
+

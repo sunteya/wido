@@ -6,3 +6,18 @@ google_secret: uZgityXPvZoT7o3K6TxidBR9
 # http://lvh.me:3000/users/auth/google_oauth2/callback
 # google_key: 340423657049-4q84kfuptsbhpivtk12bgjb3otaje3b1.apps.googleusercontent.com
 # google_secret: WP4aYptq8hBHWqUJ_9CBv6ch
+
+google_analytics_tracking_id: UA-27596203-1
+
+title: "{ wido.me }"
+
+bundles:
+  Develop:
+    - any: ruby rails server linux java ubuntu
+  iOS:
+    - any: ios cydia iphone ipad
+  Mac: 
+    - any: mac lion
+    - not: ruby rails
+  GFW:
+    - any: gfw

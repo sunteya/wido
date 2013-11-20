@@ -17,16 +17,6 @@
 #  authentication_token :string(255)
 #
 
-#  email                  :string(255)      default(""), not null
-#  remember_created_at    :datetime
-#  sign_in_count          :integer          default(0)
-#  current_sign_in_at     :datetime
-#  last_sign_in_at        :datetime
-#  current_sign_in_ip     :string(255)
-#  last_sign_in_ip        :string(255)
-#  authentication_token   :string(255)
-#
-
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :database_authenticatable, :recoverable, :registerable, :validatable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -35,6 +25,7 @@ class User < ActiveRecord::Base
 
   has_many :links
   has_many :lists
+  has_many :articles
 
   before_save :ensure_authentication_token
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+	<title><![CDATA[<%= Project.settings.title %>]]></title>
+	<link href="<%= atom_url(:xml) %>" rel="self"/>
+	<link href="<%= root_url %>"/>
+	<updated><%= Time.current.iso8601 %></updated>
+	<id><%= root_url %></id>
+	<!-- <author> -->
+		<!-- <name>sunteya</name> -->
+		<!-- <email>sunteya@gmail.com</email> -->
+	<!-- </author> -->
+
+	<% @articles.each do |article| %>
+	<entry>
+		<title type="html"><![CDATA[<%= article.title %>]]></title>
+		<link href="<%= article_url(article) %>"/>
+		<updated><%= (article.revised_at || article.published_at).iso8601 %></updated>
+		<id><%= article_url(article) %></id>
+		<content type="html"><![CDATA[<%= article_content(article) %>]]></content>
+	</entry>
+	<% end %>
+</feed>

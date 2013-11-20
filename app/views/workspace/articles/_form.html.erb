@@ -2,9 +2,14 @@
 	<%= f.input :title %>
 	<%= f.input :slug %>
 	<%= f.association :list, collection: f.object.user.lists, include_blank: false %>
+	<%= f.input :tag_list %>
+	<%= f.input :disqus_identifier %>
+	<%= f.input :published_at, as: :date, include_blank: true %>
+	<%= f.input :revised_at, as: :date, include_blank: true %>
 	<%= f.input :content %>
 
 	<%= f.fields_for :attachments do |builder| %>
+		<label><%= builder.object.original_filename %></label>
 		<%= render "attachment_fields", f: builder %>
 	<% end %>
 	

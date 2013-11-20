@@ -1,0 +1,9 @@
+<h1><%= link_to article.title, article_path(article) %></h1>
+
+<p class="tags">
+	<% article.tags.each do |tag| %>
+		<span class="label"><%= tag %></span>
+	<% end %>
+</p>
+	
+<time datetime="<%= article.published_at.iso8601 %>" pubdate><span class='month'><%= article.published_at.month %>月</span> <span class='day'><%= article.published_at.day %></span> <span class='year'><%= article.published_at.year %></span></time>

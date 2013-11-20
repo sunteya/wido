@@ -1,14 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Wido2</title>
-	<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	<meta charset="utf-8" />
+	<title><% if content_for?(:title) %><%= yield(:title) %> - <% end %><%= Project.settings.title %></title>
+
+	<!-- <meta name="author" content="{{ site.author }}" /> -->
+	<!-- <meta name="description" content="{{ description | strip_html | condense_spaces | truncate:150 }}"> -->
+	<!-- <meta name="keywords" content="{{ page.keywords }}" /> -->
+	<!-- <link rel="canonical" href="{{ canonical }}"> -->
+	<link href="<%= image_path "favicon.png" %>" rel="icon">
+	<%= stylesheet_link_tag "application", "data-turbolinks-track" => true %>
+
+	<!-- http://t.co/dKP3o1e -->
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="MobileOptimized" content="320" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<%= stylesheet_link_tag "responsive", "data-turbolinks-track" => true %>
+	
+	<link href="<%= atom_path(:xml) %>" rel="alternate" title="<%= Project.settings.title %>" type="application/atom+xml">
+
+	<%#= javascript_include_tag "application", "data-turbolinks-track" => true %>
 	<%= csrf_meta_tags %>
+	<%= render partial: "shared/google_analytics" %>
 </head>
 <body>
 
-<%= yield %>
+<body <% if content_for?(:sidebar) %>class="collapse-sidebar sidebar-footer"<% end %>>
+
+	<div class="navbar _navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<%= link_to Project.settings.title, root_path, class: "brand" %>
+				
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<% Project.settings.bundles.keys.each do |name| %>
+							<li><%= link_to name, bundle_path(name.downcase) %></li>
+						<% end %>
+					</ul>
+
+					
+					<ul class="nav pull-right" data-subscription="rss{% if site.subscribe_email %} email{% endif %}">
+						<li><a href="<%= atom_path(:xml) %>" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+
+						<!--
+						{% if site.subscribe_email %}
+						<li><a href="{{ site.subscribe_email }}" rel="subscribe-email" title="subscribe via email">Email</a></li>
+						{% endif %}
+						-->
+					</ul>
+
+					
+					<form class="navbar-search pull-right" action="http://google.com/search" method="get">
+						<input type="hidden" name="q" value="site:<%= root_url %>" />
+						<input type="text" name="q" results="0" placeholder="Search"/>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<% if content_for?(:sidebar) %>
+			<div class="row">
+				<div class="span9">
+					<%= yield %>
+				</div>
+				<div class="span3">
+					<%= yield :sidebar %>
+				</div>
+			</div>
+		<% else %>
+			<%= yield %>
+		<% end %>
+	</div>
+	
+	<footer role="contentinfo">
+		<div class="container">
+			<p>
+				Copyright &copy; <%= Date.today.year %> - sunteya
+			</p>
+		</div>
+	</footer>
+	
+	<!-- {% include disqus.html %} -->
+	<!-- {% include facebook_like.html %} -->
+	<!-- {% include google_plus_one.html %} -->
+	<!-- {% include twitter_sharing.html %} -->
+	<!-- {% include custom/after_footer.html %} -->
 
 </body>
 </html>
+
