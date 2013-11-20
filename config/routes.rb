@@ -1,4 +1,5 @@
 Wido2::Application.routes.draw do
+  get "bundles/show"
   get "articles/show"
   devise_for :users, controllers: { sessions: "users/sessions", 
                                     :omniauth_callbacks => "users/omniauth_callbacks" }
@@ -32,6 +33,7 @@ Wido2::Application.routes.draw do
     end
   end
 
-  get "/:author/:article" => "articles#show", as: "pattern_article"
+  resources :bundles
   get "/atom" => "main#atom"
+  get "/:author/:article" => "articles#show", as: "pattern_article"
 end

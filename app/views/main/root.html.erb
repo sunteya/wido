@@ -1,7 +1,7 @@
 <section class="blog-index">
 	<% @articles.each do |article| %>
 		<article>
-			<%= render :partial => "shared/article", object: article, locals: { index: true } %>
+			<%= render partial: "shared/article", object: article, locals: { index: true } %>
 		</article>
 	<% end %>
 

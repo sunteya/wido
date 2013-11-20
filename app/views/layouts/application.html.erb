@@ -21,7 +21,7 @@
 
 	<%#= javascript_include_tag "application", "data-turbolinks-track" => true %>
 	<%= csrf_meta_tags %>
-	<%= render :partial => "shared/google_analytics" %>
+	<%= render partial: "shared/google_analytics" %>
 </head>
 <body>
 
@@ -34,9 +34,9 @@
 				
 				<div class="nav-collapse collapse">
 					<ul class="nav">
-						{% for bundle in site.bundles %}
-						<li><a href="{{ root_url }}{{ bundle | first | bundle_url }}">{{ bundle | first }}</a></li>
-						{% endfor %}
+						<% Project.settings.bundles.keys.each do |name| %>
+							<li><%= link_to name, bundle_path(name.downcase) %></li>
+						<% end %>
 					</ul>
 
 					

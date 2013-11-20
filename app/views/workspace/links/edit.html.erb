@@ -1,13 +1,13 @@
-<%= render :partial => "workspace/shared/list", locals: { collection: @collection } %>
+<%= render partial: "workspace/shared/list", locals: { collection: @collection } %>
 
 <div class="panel panel-main">
-	<%= render :partial => "tabs", locals: { tab: :edit } %>
+	<%= render partial: "tabs", locals: { tab: :edit } %>
 
 
 	<h1>Edit Link</h1>
 
 	<%= simple_form_for @link, url: collection_route(@collection).link_path(@link), class: 'form-horizontal' do |f| %>
-		<%= render :partial => "form", locals: { f: f } %>
+		<%= render partial: "form", locals: { f: f } %>
 
 		<div class="form-actions">
 			<%= f.button :submit, class: 'btn btn-primary' %>

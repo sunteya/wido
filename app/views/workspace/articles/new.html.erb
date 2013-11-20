@@ -1,10 +1,10 @@
-<%= render :partial => "workspace/shared/list", locals: { collection: @collection } %>
+<%= render partial: "workspace/shared/list", locals: { collection: @collection } %>
 
 <div class="panel panel-main">
 	<h1>new article</h1>
 
 	<%= simple_form_for @article, url: collection_route(@collection).articles_path do |f| %>
-		<%= render :partial => "form", locals: { f: f } %>
+		<%= render partial: "form", locals: { f: f } %>
 
 		<div class="form-actions">
 			<%= f.button :submit, class: 'btn btn-primary' %>
