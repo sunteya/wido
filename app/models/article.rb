@@ -4,7 +4,7 @@ class Article < ActiveRecord::Base
   acts_as_taggable
   
   has_many :attachments
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 
   after_initialize :ensure_assign_user_by_list
   before_save :ensure_assign_user_by_list
