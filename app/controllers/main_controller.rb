@@ -6,4 +6,8 @@ class MainController < ApplicationController
   def atom
     @articles = Article.reorder("created_at DESC").limit(20)
   end
+
+  def archives
+    @articles = Article.reorder("created_at ASC")
+  end
 end

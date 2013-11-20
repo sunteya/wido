@@ -35,5 +35,6 @@ Wido2::Application.routes.draw do
 
   resources :bundles
   get "/atom" => "main#atom"
+  get "/archives" => "main#archives"
   get "/:author/:article" => "articles#show", as: "pattern_article"
 end
