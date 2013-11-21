@@ -20,17 +20,25 @@ class Article < ActiveRecord::Base
   belongs_to :user
   belongs_to :list
   acts_as_taggable
+  symbolize :state, in: [ :published, :archived, :draft ], scopes: true
   
   has_many :attachments
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
   after_initialize :ensure_assign_user_by_list
   before_save :ensure_assign_user_by_list
+  before_save :ensure_posted_at
 
   validates :published_at, presence: true
-  
+
+  scope :published, -> { state(:published).reorder(posted_at: :desc) }
+
   def ensure_assign_user_by_list
     self.user ||= self.list.user if self.list_id_changed?
+  end
+  
+  def ensure_posted_at
+    posted_at = revised_at || published_at
   end
 
   def collection
