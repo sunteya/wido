@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: articles
+#
+#  id                :integer          not null, primary key
+#  title             :string(255)
+#  slug              :string(255)
+#  content           :text
+#  user_id           :integer
+#  list_id           :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#  disqus_identifier :string(255)
+#  published_at      :datetime
+#  revised_at        :datetime
+#  state             :string(255)
+#
+
 class Article < ActiveRecord::Base
   belongs_to :user
   belongs_to :list
