@@ -28,7 +28,7 @@ gem 'turbolinks', '~> 1.2'
 gem 'jquery-turbolinks', '~> 1.0.0'
 
 gem 'bootstrap-sass', '~> 2.3.2'
-gem 'font-awesome-sass-rails', '~> 3.0.2.2'
+gem 'font-awesome-rails', '~> 4.0.3'
 
 
 # Assets

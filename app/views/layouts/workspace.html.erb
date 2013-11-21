@@ -24,8 +24,8 @@
 			</form>
 			
 			<div class="btn-group">
-				<a class="btn" data-toggle="modal" href="<%= new_workspace_collation_link_path('inbox') %>"><i class="icon-link"></i></a>
-				<a class="btn" data-toggle="modal" href="<%= new_workspace_collation_article_path('inbox') %>"><i class="icon-file-alt"></i></a>
+				<a class="btn" data-toggle="modal" href="<%= new_workspace_collation_link_path('inbox') %>"><i class="fa fa-link"></i></a>
+				<a class="btn" data-toggle="modal" href="<%= new_workspace_collation_article_path('inbox') %>"><i class="fa fa-file-text-o"></i></a>
 			</div>
 
 <% save_to_wido_script = capture do %>
@@ -77,12 +77,12 @@ fw323();
 			<ul class="nav nav-list">
 				<li class="active">
 					<%= link_to workspace_collation_path('inbox') do %>
-						<i class="icon-inbox"></i> Inbox
+						<i class="fa fa-inbox"></i> Inbox
 					<% end %>
 				</li>
 				<li class="">
 					<%= link_to workspace_collation_path('review') do %>
-						<i class="icon-edit"></i> Review
+						<i class="fa fa-edit"></i> Review
 					<% end %>
 				</li>
 			</ul>
@@ -95,7 +95,7 @@ fw323();
 			</ul>
 
 			<footer>
-				<%= link_to new_workspace_list_path do %><i class="icon-plus"></i><% end %>
+				<%= link_to new_workspace_list_path do %><i class="fa fa-plus"></i><% end %>
 			</footer>
 		</div>
 		

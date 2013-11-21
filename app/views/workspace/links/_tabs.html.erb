@@ -1,10 +1,10 @@
 <%= fume_nav tab do |n| %>
 <ul class="nav nav-tabs">
 	<%= n.li_tag :show do %>
-		<%= link_to collection_route(@collection).link_path(@link) do %><i class="icon-search"></i> 详情<% end %>
+		<%= link_to collection_route(@collection).link_path(@link) do %><i class="fa fa-search"></i> 详情<% end %>
 	<% end %>
 	<%= n.li_tag :edit do %>
-		<%= link_to collection_route(@collection).edit_link_path(@link) do %><i class="icon-pencil"></i> 编辑<% end %>
+		<%= link_to collection_route(@collection).edit_link_path(@link) do %><i class="fa fa-pencil"></i> 编辑<% end %>
 	<% end %>
 </ul>
 <% end %>
