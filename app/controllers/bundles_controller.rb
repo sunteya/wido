@@ -2,7 +2,7 @@ class BundlesController < ApplicationController
   def show
     @bundle = bundle(params[:id])
 
-    scope = Article.reorder("created_at ASC")
+    scope = Article.published
     scope = scope.tagged_with(@bundle[:any].split(" "), any: true) if @bundle[:any]
     scope = scope.tagged_with(@bundle[:not].split(" "), exclude: true) if @bundle[:not]
 

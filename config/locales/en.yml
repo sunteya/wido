@@ -21,3 +21,12 @@
 
 en:
   hello: "Hello world"
+
+
+  activerecord:
+    symbolizes:
+      article:
+        state:
+          published: published
+          archived:  archived
+          draft:     draft
