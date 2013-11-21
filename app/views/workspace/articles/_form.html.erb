@@ -6,6 +6,7 @@
 	<%= f.input :disqus_identifier %>
 	<%= f.input :published_at, as: :date, include_blank: true %>
 	<%= f.input :revised_at, as: :date, include_blank: true %>
+	<%= f.input :state, as: :select, collection: Article.get_state_values %>
 	<%= f.input :content %>
 
 	<%= f.fields_for :attachments do |builder| %>

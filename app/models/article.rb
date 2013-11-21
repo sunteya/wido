@@ -20,7 +20,7 @@ class Article < ActiveRecord::Base
   belongs_to :user
   belongs_to :list
   acts_as_taggable
-  symbolize :state, in: [ :published, :archived, :draft ], scopes: true
+  symbolize :state, in: [ :published, :archived, :draft ], scopes: true, default: :draft
   
   has_many :attachments
   accepts_nested_attributes_for :attachments, allow_destroy: true
