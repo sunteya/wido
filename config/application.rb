@@ -31,7 +31,7 @@ module Wido2
       g.helper false
     end
 
-    config.assets.precompile += [ 'workspace.*' ]
+    config.assets.precompile += [ "responsive.*", 'workspace.*' ]
 
     config.middleware.insert_before Warden::Manager, Rack::Cors, logger: Rails.logger do
       allow do
