@@ -14,3 +14,6 @@
 /config/settings.local.yml
 /Gemfile.lock
 /public/system/
+/vendor/assets/.bowerrc
+/vendor/assets/bower.json
+/vendor/assets/bower_components/

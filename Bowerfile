@@ -1,0 +1,3 @@
+group :vendor do
+  asset "bootstrap-datetimepicker", "Eonasdan/bootstrap-datetimepicker#master"
+end

@@ -6,11 +6,12 @@ module ApplicationHelper
     hidden_field_tag :ok_url, params[:ok_url] if params[:ok_url].present?
   end
 
-  def link_to_add_fields(name, f, association, options = {})
+  def link_to_add_fields(name, f, association, options = {}, &block)
     new_object = f.object.send(association).klass.new
     id = new_object.object_id
+
     fields = f.fields_for(association, new_object, child_index: id) do |builder|
-      render(association.to_s.singularize + "_fields", f: builder)
+      capture(builder, &block)
     end
 
     (options[:data] ||= {}).update(id: id, fields: fields.gsub("\n", ""))
@@ -147,8 +148,8 @@ HTML
     content = article.content
     convert = content.gsub(/\{POST_URL\}\/[^"')]+/) do |attachment_name|
       attachment_name.gsub!("{POST_URL}/", "")
-      attachment = Attachment.where(original_filename: attachment_name).first!
-      attachment.file.url
+      attachment = article.attachments.where(original_filename: attachment_name).first
+      attachment.file.url if attachment
     end
 
     explain(convert)
