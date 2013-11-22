@@ -118,18 +118,6 @@ article {
 		@extend .alert-info;
 	}
 	
-	.more {
-		@extend .btn;
-		background-color: #F4F4F4;
-		background-image: none;
-		opacity: 0.85;
-		
-		&:hover {
-			opacity: 1;
-		}
-	}
-	
-	
 	.highlight {
 		padding: 8px;
 		background-color: #f7f7f9;

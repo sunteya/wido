@@ -16,7 +16,7 @@
 <aside>
 	<section>
 		<h3>Recent Posts</h3>
-		<ul id="recent_posts" class="nav nav-tabs nav-stacked">
+		<ul id="recent_posts" class="nav nav-stacked">
 			<% Article.published.limit(10).each do |article| %>
 				<li class="post">
 					<%= link_to article.title, article_path(article) %>
