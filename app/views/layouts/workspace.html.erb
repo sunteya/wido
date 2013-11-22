@@ -10,22 +10,22 @@
 <div id="surface">
 	<div id="header" class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
-		<div class="container-fluid">
-			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
+		<div class="container">
+			<button type="button" class="btn btn-default navbar-btn" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="glyphicon glyphicon-bar"></span>
+				<span class="glyphicon glyphicon-bar"></span>
+				<span class="glyphicon glyphicon-bar"></span>
 			</button>
 			
-			<a class="brand" href="#">WIDO 2</a>
+			<a class="navbar-brand" href="#">WIDO 2</a>
 			
 			<form class="navbar-form pull-left">
 				<input type="text" class="input-medium search-query">
 			</form>
 			
 			<div class="btn-group">
-				<a class="btn" data-toggle="modal" href="<%= new_workspace_collation_link_path('inbox') %>"><i class="fa fa-link"></i></a>
-				<a class="btn" data-toggle="modal" href="<%= new_workspace_collation_article_path('inbox') %>"><i class="fa fa-file-text-o"></i></a>
+				<a class="btn btn-default" data-toggle="modal" href="<%= new_workspace_collation_link_path('inbox') %>"><i class="fa fa-link"></i></a>
+				<a class="btn btn-default" data-toggle="modal" href="<%= new_workspace_collation_article_path('inbox') %>"><i class="fa fa-file-text-o"></i></a>
 			</div>
 
 <% save_to_wido_script = capture do %>
@@ -71,7 +71,7 @@ fw323();
 	</div>
 	</div>
 	
-	<div class="container-fluid">
+	<div class="container">
 		<div id="sidebar">
 			<h3>整理</h3>
 			<ul class="nav nav-list">
