@@ -222,3 +222,25 @@ $primary-border-color: #c4c3ce;
 	}
 }
 
+
+
+.form-actions {
+	padding: 19px 20px 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color: whitesmoke;
+	border-top: 1px solid #e5e5e5;
+}
+
+.form-group.date {
+	@include clearfix;
+
+	label {
+		display: block;
+	}
+
+	.form-control {
+		width: 20%;
+		float: left;
+	}
+}
