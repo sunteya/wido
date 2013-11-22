@@ -7,12 +7,12 @@
 	<%= f.input :published_at, as: :date, include_blank: true %>
 	<%= f.input :revised_at, as: :date, include_blank: true %>
 	<%= f.input :state, as: :select, collection: Article.get_state_values %>
-	<%= f.input :content %>
 
 	<%= f.fields_for :attachments do |builder| %>
 		<label><%= builder.object.original_filename %></label>
 		<%= render "attachment_fields", f: builder %>
 	<% end %>
-	
 	<%= link_to_add_fields "增加附件", f, :attachments %>
+
+	<%= f.input :content, input_html: { rows: 20 } %>
 </div>

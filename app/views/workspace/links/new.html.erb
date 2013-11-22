@@ -1,6 +1,6 @@
 <%= render partial: "workspace/shared/list", locals: { collection: @collection } %>
 
-<div class="panel panel-main">
+<div class="view view-main">
 	<h1>new link</h1>
 
 	<%= simple_form_for @link, url: collection_route(@collection).links_path do |f| %>
@@ -8,7 +8,7 @@
 
 		<div class="form-actions">
 			<%= f.button :submit, class: 'btn btn-primary' %>
-			<%= link_to 'Back', collection_route(@collection).links_path, class: 'btn' %>
+			<%= link_to 'Back', collection_route(@collection).links_path, class: 'btn btn-default' %>
 		</div>
 	<% end %>
 </div>

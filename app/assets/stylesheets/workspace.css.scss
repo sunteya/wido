@@ -11,11 +11,16 @@ html, body {
 	height: 100%;
 	position: relative;
 	overflow: hidden;
+
+	> header {
+		margin-bottom: 0;
+	}
 	
-	> .container-fluid {
+	> .container {
 		@include box-sizing(border-box);
-		padding: $navbarHeight 0 0 0;
+		padding: $navbar-height 0 0 0;
 		height: 100%;
+		width: 100%;
 	}
 	
 	#sidebar {
@@ -30,17 +35,17 @@ html, body {
 		margin-left: 220px;
 		overflow: auto;
 		
-		.panel {
+		.view {
 			height: 100%;
 		}
 		
-		.panel-aside {
+		.view-aside {
 			width: 30%;
 			float: left;
 			height: 100%;
 		}
 		
-		.panel-main {
+		.view-main {
 			margin-left: 30%;
 			height: 100%;
 		}
@@ -50,14 +55,9 @@ html, body {
 $primary-border-color: #c4c3ce;
 
 #header {
-	.navbar-inner {
-		background: #F3F3F5;
-		@include background(linear-gradient(center bottom, #DDDDE2 0%, #F9F9F9 100%));
-		box-shadow: none;
-		border-color: #9898A7;
-	}
+	border-color: #9898A7;
 	
-	.brand {
+	.navbar-brand {
 		color: #646475;
 		text-shadow: 1px 1px 0 #ffffff;
 		font-weight: bold;
@@ -65,10 +65,17 @@ $primary-border-color: #c4c3ce;
 	}
 	
 	.navbar-form {
-		margin-right: 20px;
-		
 		input {
-			background: transparent;
+			opacity: 0.65;
+			@include transition(width ease 0.15s,
+								opacity ease 0.15s,
+								border-color ease-in-out 0.15s,
+								box-shadow ease-in-out 0.15s);
+
+			&:focus {
+				opacity: 1;
+				width: 20em;
+			}
 		}
 	}
 }
@@ -109,20 +116,20 @@ $primary-border-color: #c4c3ce;
 	}
 }
 
-.panel {
+.view {
 	> header {
 		background: #f8f8f8;
 		padding-bottom: 0.5em;
 	}
 }
 
-.panel-aside {
+.view-aside {
 	@include box-sizing(border-box);
 	border-right: 1px solid $primary-border-color;
 	overflow: auto;
 }
 
-.panel-main {
+.view-main {
 	@include box-sizing(border-box);
 	padding: 5px 20px;
 	overflow: auto;
@@ -206,8 +213,8 @@ $primary-border-color: #c4c3ce;
 			color: #999;
 			
 			.label {
-				font-size: $baseFontSize * 0.65;
-				line-height: $baseFontSize * 0.65 + 2px;
+				font-size: $base-font-size * 0.65;
+				line-height: $base-font-size * 0.65 + 2px;
 				padding: 1px 3px;
 				opacity: 0.8;
 			}
@@ -215,3 +222,25 @@ $primary-border-color: #c4c3ce;
 	}
 }
 
+
+
+.form-actions {
+	padding: 19px 20px 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color: whitesmoke;
+	border-top: 1px solid #e5e5e5;
+}
+
+.form-group.date {
+	@include clearfix;
+
+	label {
+		display: block;
+	}
+
+	.form-control {
+		width: 20%;
+		float: left;
+	}
+}

@@ -31,7 +31,7 @@
 	<div class="entry-content"><%=raw excerpt parsed_content %></div>
 	<% if has_excerpt parsed_content %>
 		<footer>
-			<%= link_to "阅读全部 →", article_path(article), class: "more", rel: "full-article" %>
+			<%= link_to "阅读全部 →", article_path(article), class: "btn btn-default", rel: "full-article" %>
 		</footer>
 	<% end %>
 <% else %>
