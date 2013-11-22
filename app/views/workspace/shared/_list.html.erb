@@ -1,11 +1,4 @@
-<div class="panel panel-aside">
-<!-- 
-	<header>
-		<%#= link_to "new link", new_workspace_link_path %>
-		<input /> search
-	</header>
--->
-
+<div class="view view-aside">
 	<ul class="list">
 		<% collection.articles.order("created_at DESC").each do |article| %>
 		<li class="article">
