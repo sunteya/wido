@@ -19,27 +19,27 @@
 		</div>
 	</div>
 
-			
-
 	<fieldset>
-		<label><input type="checkbox"> 显示高级属性</label>
-		
-		<div class="row">
-			<div class="col-sm-6">
-				<%= f.input :published_at, as: :datepicker, include_blank: true %>
-			</div>
-			<div class="col-sm-6">
-				<%= f.input :revised_at, as: :datepicker, include_blank: true %>
-			</div>
-		</div>
+		<label id="advanced-fields-toggle" data-target="#advanced-fields"><input type="checkbox"> 显示高级属性</label>
 
-		<%= f.input :disqus_identifier %>
+		<div id="advanced-fields">
+			<div class="row">
+				<div class="col-sm-6">
+					<%= f.input :published_at, as: :datepicker, include_blank: true %>
+				</div>
+				<div class="col-sm-6">
+					<%= f.input :revised_at, as: :datepicker, include_blank: true %>
+				</div>
+			</div>
+
+			<%= f.input :disqus_identifier %>
+		</div>
 	</fieldset>
 
 	<div class="row">
 		<div class="col-sm-9 wd-article-content">
 			<%= f.label :content %>
-			<div class="btn-group btn-group-xs pull-right">
+			<div class="btn-group btn-group-xs">
 				<div class="btn"><i class="fa fa-arrows-alt"></i></div>
 			</div>
 			<%= f.input :content, label: false, input_html: { rows: 20 } %>
@@ -78,6 +78,18 @@
 
 
 <script>
+
+
+$("#advanced-fields-toggle").each(function() {
+	var self = $(this);
+	self.find("input[type=checkbox]").change(function(event) {
+		event.preventDefault();
+		var targetSelector = self.data("target");
+		$(targetSelector).toggle(this.checked);
+	}).trigger("change");
+}); 
+
+
 $(".wd-article-attachments").each(function() {
 	var ul = $(this).find("ul");
 	$(this).on("click", ".btn.trash", function(event) {
@@ -113,19 +125,4 @@ $(".wd-article-attachments").each(function() {
 			fileInput[0].click();
 		});
 });
-
-
-	// $('form').on 'click', '.add_fields', (event) ->
-	// 	event.preventDefault()
-	// 	time = new Date().getTime()
-	// 	regexp = new RegExp($(this).data('id'), 'g')
-	// 	content = $(this).data('fields').replace(regexp, time)
-
-	// 	appendToTarget = $(this).data('append-to');
-	// 	return $(content).appendTo(appendToTarget) if appendToTarget
-
-	// 	insertBeforeTarget = $(this).data("insert-before");
-	// 	return $(content).insertBefore(insertBeforeTarget) if insertBeforeTarget
-
-	// 	$(this).before(content)
 </script>
