@@ -29,7 +29,10 @@ class Article < ActiveRecord::Base
   before_save :ensure_assign_user_by_list
   before_save :ensure_posted_at
 
+  validates :title, presence: true
+  validates :state, presence: true
   validates :published_at, presence: true
+  
 
   scope :published, -> { state(:published).reorder(posted_at: :desc) }
 

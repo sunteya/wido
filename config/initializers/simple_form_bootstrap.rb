@@ -49,3 +49,6 @@ SimpleForm.setup do |config|
   # buttons and other elements.
   config.default_wrapper = :bootstrap
 end
+
+require "simple_form/inputs/datepicker_input"
+# require "simple_form/inputs/datepicker_input"

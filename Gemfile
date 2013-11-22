@@ -32,6 +32,7 @@ gem 'font-awesome-rails', '~> 4.0.3'
 
 
 # Assets
+gem "bower-rails", "~> 0.5.0"
 gem 'compass-rails', "~> 2.0.alpha.0"
 gem 'sass-rails', '~> 4.0.1'
 gem 'coffee-rails', '~> 4.0.1'

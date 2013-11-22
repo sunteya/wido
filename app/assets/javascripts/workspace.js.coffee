@@ -1,8 +1,9 @@
-//= require jquery
-//= require jquery_ujs
-//= require turbolinks
-//= require jquery.turbolinks
-//= require bootstrap
+#= require jquery
+#= require jquery_ujs
+#= require turbolinks
+#= require jquery.turbolinks
+#= require bootstrap
+#= require ./bootstrap-datetimepicker.js
 
 jQuery ->
 	$(document).on "submit", "#link-form-modal form", (event)->
@@ -18,16 +19,20 @@ jQuery ->
 				$(form).closest(".modal").modal('hide')
 				# location.reload() # TODO
 
-	$('form').on 'click', '.add_fields', (event) ->
-		event.preventDefault()
-		time = new Date().getTime()
-		regexp = new RegExp($(this).data('id'), 'g')
-		content = $(this).data('fields').replace(regexp, time)
+	# $('form').on 'click', '.add_fields', (event) ->
+	# 	event.preventDefault()
+	# 	time = new Date().getTime()
+	# 	regexp = new RegExp($(this).data('id'), 'g')
+	# 	content = $(this).data('fields').replace(regexp, time)
 
-		appendToTarget = $(this).data('append-to');
-		return $(content).appendTo(appendToTarget) if appendToTarget
+	# 	appendToTarget = $(this).data('append-to');
+	# 	return $(content).appendTo(appendToTarget) if appendToTarget
 
-		insertBeforeTarget = $(this).data("insert-before");
-		return $(content).insertBefore(insertBeforeTarget) if insertBeforeTarget
+	# 	insertBeforeTarget = $(this).data("insert-before");
+	# 	return $(content).insertBefore(insertBeforeTarget) if insertBeforeTarget
 
-		$(this).before(content)
+	# 	$(this).before(content)
+
+	$('.datepicker .input-group').datetimepicker
+		language: 'zh-cn',
+		pickTime: false

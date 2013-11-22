@@ -1,18 +1,128 @@
 <div class="form-inputs">
-	<%= f.input :title %>
-	<%= f.input :slug %>
-	<%= f.association :list, collection: f.object.user.lists, include_blank: false %>
-	<%= f.input :tag_list %>
-	<%= f.input :disqus_identifier %>
-	<%= f.input :published_at, as: :date, include_blank: true %>
-	<%= f.input :revised_at, as: :date, include_blank: true %>
-	<%= f.input :state, as: :select, collection: Article.get_state_values %>
+	<%= f.input :title, label: false, input_html: { class: "input-lg" } %>
 
-	<%= f.fields_for :attachments do |builder| %>
-		<label><%= builder.object.original_filename %></label>
-		<%= render "attachment_fields", f: builder %>
-	<% end %>
-	<%= link_to_add_fields "增加附件", f, :attachments %>
+	<div class="row">
+		<div class="col-sm-8">
+			<%= f.input :tag_list %>
+		</div>
+		<div class="col-sm-4">
+			<%= f.association :list, collection: f.object.user.lists, include_blank: false %>
+		</div>
+	</div>
 
-	<%= f.input :content, input_html: { rows: 20 } %>
+	<div class="row">
+		<div class="col-sm-8">
+			<%= f.input :slug %>
+		</div>
+		<div class="col-sm-4">
+			<%= f.input :state, as: :select, collection: Article.get_state_values, include_blank: false %>
+		</div>
+	</div>
+
+	<fieldset>
+		<label id="advanced-fields-toggle" data-target="#advanced-fields"><input type="checkbox"> 显示高级属性</label>
+
+		<div id="advanced-fields">
+			<div class="row">
+				<div class="col-sm-6">
+					<%= f.input :published_at, as: :datepicker, include_blank: true %>
+				</div>
+				<div class="col-sm-6">
+					<%= f.input :revised_at, as: :datepicker, include_blank: true %>
+				</div>
+			</div>
+
+			<%= f.input :disqus_identifier %>
+		</div>
+	</fieldset>
+
+	<div class="row">
+		<div class="col-sm-9 wd-article-content">
+			<%= f.label :content %>
+			<div class="btn-group btn-group-xs">
+				<div class="btn"><i class="fa fa-arrows-alt"></i></div>
+			</div>
+			<%= f.input :content, label: false, input_html: { rows: 20 } %>
+		</div>
+		<div class="col-sm-3 wd-article-attachments">
+			<div class="form-group optional article_attachments">
+				<%= f.label :attachments %>
+				
+				<ul>
+					<%= f.fields_for :attachments do |builder| %>
+						<li>
+							<div class="inner">
+								<span><%= builder.object.original_filename %></span>
+								<%= builder.check_box :_destroy %>
+								<a class="btn trash"><i class="fa fa-trash-o"></i></a>
+								<a class="btn undo only-removed"><i class="fa fa-undo"></i></a>
+							</div>
+						</li>
+					<% end %>
+				</ul>
+
+				<%= link_to_add_fields "增加附件", f, :attachments do |b| %>
+					<li>
+						<div class="inner">
+							<span></span>
+							<%= b.file_field :file, as: :file %>
+							<a class="btn trash"><i class="fa fa-trash-o"></i></a>
+							<a class="btn undo only-removed"><i class="fa fa-undo"></i></a>
+						</div>
+					</li>
+				<% end %>
+			</div>
+		</div>
+	</div>
 </div>
+
+
+<script>
+
+
+$("#advanced-fields-toggle").each(function() {
+	var self = $(this);
+	self.find("input[type=checkbox]").change(function(event) {
+		event.preventDefault();
+		var targetSelector = self.data("target");
+		$(targetSelector).toggle(this.checked);
+	}).trigger("change");
+}); 
+
+
+$(".wd-article-attachments").each(function() {
+	var ul = $(this).find("ul");
+	$(this).on("click", ".btn.trash", function(event) {
+			event.preventDefault();
+			var li = $(event.target).closest("li");
+			li.addClass("removed");
+			li.find("input[type=checkbox]").attr("checked", "checked");
+			li.find("input[type=file]").attr("disabled", "disabled");
+		})
+		.on("click", ".btn.undo", function(event) {
+			event.preventDefault();
+			var li = $(event.target).closest("li")
+			li.removeClass("removed");
+			li.find("input[type=checkbox]").removeAttr("checked");
+			li.find("input[type=file]").removeAttr("disabled");
+		})
+		.on("click", ".add_fields", function(event) {
+			var time = new Date().getTime();
+			var regexp = new RegExp($(this).data('id'), 'g');
+			var content = $(this).data('fields').replace(regexp, time);
+			var element = $(content);
+
+			var self = $(this);
+			var fileInput = element.find("input[type=file]");
+			fileInput.change(function(event) {
+				if (this.files.length > 0) {
+					var filename = this.files[0].name;
+					ul.append(element);
+					element.find("span").text(filename);
+				}
+			});
+
+			fileInput[0].click();
+		});
+});
+</script>

@@ -1,7 +1,7 @@
-<%= f.input :file, as: :file %>
-<div class="form-group">
-	<%= f.label :_destroy, class: "checkbox" do %>
-		<%= f.check_box :_destroy %>
-		删除?
-	<% end %>
-</div>
+<li>
+	<span></span>
+	<%= f.file_field :file, as: :file %>
+	<%= f.check_box :_destroy %>
+	<a class="btn trash"><i class="fa fa-trash-o"></i></a>
+	<a class="btn undo only-removed"><i class="fa fa-undo"></i></a>
+</li>
