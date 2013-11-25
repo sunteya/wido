@@ -15,7 +15,8 @@ class List < ActiveRecord::Base
   has_many :links
   has_many :articles
   
-  validates :user_id, :presence => true
+  validates :user_id, presence: true
+  validates :name, presence: true
 
   scope :customable, ->() { where(syscode: nil) }
   

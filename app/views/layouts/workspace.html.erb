@@ -91,7 +91,10 @@ fw323();
 			</ul>
 
 			<footer>
-				<%= link_to new_workspace_list_path do %><i class="fa fa-plus"></i><% end %>
+				<%= link_to new_workspace_list_path, data: { toggle: "modal", target: "#new-list-modal" } do %><i class="fa fa-plus"></i><% end %>
+				<% content_for :modals do %>
+					<div class="modal fade" id="new-list-modal" tabindex="-1" role="dialog" aria-labelledby="newListModal" aria-hidden="true"></div>
+				<% end %>
 			</footer>
 		</div>
 		
@@ -100,6 +103,15 @@ fw323();
 		</div>
 	</div>
 </div>
+
+
+<%= yield :modals %>
+
+<script>
+$('body').on('hidden.bs.modal', '.modal', function () {
+	$(this).removeData('bs.modal');
+});
+</script>
 
 </body>
 </html>
