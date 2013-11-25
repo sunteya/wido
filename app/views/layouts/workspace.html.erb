@@ -111,7 +111,9 @@ fw323();
 							<% end %>
 						</li>
 						<li>
-							<a href="#"><i class="fa fa-trash-o fa-fw"></i> 删除列表</a>
+							<%= link_to delete_workspace_list_path(@list), data: { toggle: "modal", target: "#remote-modal" } do %>
+								<i class="fa fa-trash-o fa-fw"></i> 删除列表
+							<% end %>
 						</li>
 						<% end %>
 						<li class="divider"></li>

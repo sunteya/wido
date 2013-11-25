@@ -1,4 +1,10 @@
 class Workspace::ListsController < Workspace::BaseController
+
+  def show
+    @list = current_user.lists.find(params[:id])
+    @collection = @list
+  end
+
   def new
     @list = current_user.lists.scoped.new
     render layout: !request.xhr?
@@ -14,11 +20,6 @@ class Workspace::ListsController < Workspace::BaseController
     end
   end
 
-  def show
-    @list = current_user.lists.find(params[:id])
-    @collection = @list
-  end
-
   def edit
     @list = current_user.lists.find(params[:id])
     render layout: !request.xhr?
@@ -31,6 +32,17 @@ class Workspace::ListsController < Workspace::BaseController
     else
       render 'edit', status: :unprocessable_entity, layout: !request.xhr?
     end
+  end
+
+  def delete
+    @list = current_user.lists.find(params[:id])
+    render layout: !request.xhr?
+  end
+
+  def destroy
+    @list = current_user.lists.find(params[:id])
+    @list.destroy
+    redirect_to workspace_root_path
   end
 
 protected
