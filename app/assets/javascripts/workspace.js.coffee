@@ -1,7 +1,5 @@
 #= require jquery
 #= require jquery_ujs
-#= require turbolinks
-#= require jquery.turbolinks
 #= require bootstrap
 #= require ./bootstrap-datetimepicker.js
 #= require bootstrap-tagsinput/dist/bootstrap-tagsinput.js
