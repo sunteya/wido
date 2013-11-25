@@ -16,7 +16,21 @@ class Workspace::ListsController < Workspace::BaseController
 
   def show
     @list = current_user.lists.find(params[:id])
-    @collation = @list
+    @collection = @list
+  end
+
+  def edit
+    @list = current_user.lists.find(params[:id])
+    render layout: !request.xhr?
+  end
+
+  def update
+    @list = current_user.lists.find(params[:id])
+    if @list.update_attributes(list_params)
+      redirect_to workspace_list_path(@list)
+    else
+      render 'edit', status: :unprocessable_entity, layout: !request.xhr?
+    end
   end
 
 protected
