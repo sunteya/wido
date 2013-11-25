@@ -24,9 +24,10 @@
 
 	<script>
 	$("form#<%= form_id %>").on("ajax:success", function(event, data, status, xhr) {
-		location.reload();
+		location.href = data.location;
 	}).on("ajax:error", function(event, xhr, status, error) {
-		$(event.target).closest(".modal-dialog").replaceWith(xhr.responseText);
+		var data = $.parseJSON(xhr.responseText);
+		$(event.target).closest(".modal-dialog").replaceWith(data.html);
 	});
 	</script>
 </div>

@@ -14,9 +14,9 @@ class Workspace::ListsController < Workspace::BaseController
     @list = current_user.lists.scoped.new(list_params)
 
     if @list.save
-      redirect_to workspace_list_path(@list)
+      render json: { location: workspace_list_path(@list) }
     else
-      render 'new', status: :unprocessable_entity, layout: !request.xhr?
+      render json: { html: render_to_string(partial: "modal_form.html.erb") }, status: :unprocessable_entity
     end
   end
 
@@ -28,9 +28,9 @@ class Workspace::ListsController < Workspace::BaseController
   def update
     @list = current_user.lists.find(params[:id])
     if @list.update_attributes(list_params)
-      redirect_to workspace_list_path(@list)
+      render json: { location: workspace_list_path(@list) }
     else
-      render 'edit', status: :unprocessable_entity, layout: !request.xhr?
+      render json: { html: render_to_string(partial: "modal_form.html.erb") }, status: :unprocessable_entity
     end
   end
 
@@ -42,7 +42,7 @@ class Workspace::ListsController < Workspace::BaseController
   def destroy
     @list = current_user.lists.find(params[:id])
     @list.destroy
-    redirect_to workspace_root_path
+    render json: { location: workspace_root_path }
   end
 
 protected
