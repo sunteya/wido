@@ -16,6 +16,7 @@ class Workspace::ListsController < Workspace::BaseController
 
   def show
     @list = current_user.lists.find(params[:id])
+    @collation = @list
   end
 
 protected

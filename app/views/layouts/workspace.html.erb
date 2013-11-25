@@ -69,31 +69,35 @@ fw323();
 	
 	<div class="container">
 		<div id="sidebar">
+			<%= fume_nav @collation.id do |n| %>
 			<h3>整理</h3>
 			<ul class="nav nav-list">
-				<li class="active">
+				<%= n.li_tag 'inbox' do %>
 					<%= link_to workspace_collation_path('inbox') do %>
 						<i class="fa fa-inbox"></i> Inbox
 					<% end %>
-				</li>
-				<li class="">
+				<% end %>
+				<%= n.li_tag 'review' do %>
 					<%= link_to workspace_collation_path('review') do %>
 						<i class="fa fa-edit"></i> Review
 					<% end %>
-				</li>
+				<% end %>
 			</ul>
 			
 			<h3>列表</h3>
 			<ul class="nav nav-list">
 				<% current_user.lists.customable.each do |list| %>
-				<li><%= link_to list.name, workspace_list_path(list) %></li>
+					<%= n.li_tag list.id do %>
+						<%= link_to list.name, workspace_list_path(list) %>
+					<% end %>
 				<% end %>
 			</ul>
+			<% end %>
 
 			<footer>
 				<%= link_to new_workspace_list_path, data: { toggle: "modal", target: "#new-list-modal" } do %><i class="fa fa-plus"></i><% end %>
 				<% content_for :modals do %>
-					<div class="modal fade" id="new-list-modal" tabindex="-1" role="dialog" aria-labelledby="newListModal" aria-hidden="true"></div>
+					<div class="modal fade" id="new-list-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 				<% end %>
 			</footer>
 		</div>
