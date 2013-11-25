@@ -4,7 +4,7 @@ SimpleForm.setup do |config|
   # FIXME
   config.input_class = "form-control"
 
-  config.wrappers :bootstrap, tag: 'div', class: 'form-group', error_class: 'error' do |b|
+  config.wrappers :bootstrap, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
 
     b.use :html5
     b.use :placeholder
@@ -12,7 +12,7 @@ SimpleForm.setup do |config|
 
     # b.wrapper tag: 'div', class: 'controls' do |ba|
       b.use :input
-      b.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
+      b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
       b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
     # end
   end

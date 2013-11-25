@@ -69,29 +69,57 @@ fw323();
 	
 	<div class="container">
 		<div id="sidebar">
+			<%= fume_nav @collection.id do |n| %>
 			<h3>整理</h3>
 			<ul class="nav nav-list">
-				<li class="active">
+				<%= n.li_tag 'inbox' do %>
 					<%= link_to workspace_collation_path('inbox') do %>
 						<i class="fa fa-inbox"></i> Inbox
 					<% end %>
-				</li>
-				<li class="">
+				<% end %>
+				<%= n.li_tag 'review' do %>
 					<%= link_to workspace_collation_path('review') do %>
 						<i class="fa fa-edit"></i> Review
 					<% end %>
-				</li>
+				<% end %>
 			</ul>
 			
 			<h3>列表</h3>
 			<ul class="nav nav-list">
 				<% current_user.lists.customable.each do |list| %>
-				<li><%= link_to list.name, workspace_list_path(list) %></li>
+					<%= n.li_tag list.id do %>
+						<%= link_to list.name, workspace_list_path(list) %>
+					<% end %>
 				<% end %>
 			</ul>
+			<% end %>
 
 			<footer>
-				<%= link_to new_workspace_list_path do %><i class="fa fa-plus"></i><% end %>
+				<div class="btn-group">
+					<%= link_to new_workspace_list_path, class: "btn btn-default btn-transparent", data: { toggle: "modal", target: "#remote-modal" } do %><i class="fa fa-plus"></i><% end %>
+				</div>
+
+				<div class="btn-group dropup pull-right">
+					<button type="button" class="btn btn-default btn-transparent dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-cog"></i> <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<% if @list %>
+						<li>
+							<%= link_to edit_workspace_list_path(@list), data: { toggle: "modal", target: "#remote-modal" } do %>
+								<i class="fa fa-pencil fa-fw"></i> 编辑列表
+							<% end %>
+						</li>
+						<li>
+							<%= link_to delete_workspace_list_path(@list), data: { toggle: "modal", target: "#remote-modal" } do %>
+								<i class="fa fa-trash-o fa-fw"></i> 删除列表
+							<% end %>
+						</li>
+						<% end %>
+						<li class="divider"></li>
+						<li class="disabled"><a href="#">...</a></li>
+					</ul>
+				</div>
 			</footer>
 		</div>
 		
@@ -100,6 +128,15 @@ fw323();
 		</div>
 	</div>
 </div>
+
+
+<div class="modal fade" id="remote-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+<script>
+$('body').on('hidden.bs.modal', '.modal', function () {
+	$(this).removeData('bs.modal');
+});
+</script>
 
 </body>
 </html>
