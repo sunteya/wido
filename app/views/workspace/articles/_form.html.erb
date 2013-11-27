@@ -1,17 +1,14 @@
 <%= f.input :title, label: false, input_html: { class: "input-lg" } %>
-<%#= f.input :slug, label: false, input_html: { class: "input-sm" } %>
-<%= f.input :tag_list, label: "Tags:", input_html: { data: { role: "tagsinput" }, placeholder: "add tags.." } %>
+<%= f.input :tag_list, input_html: { data: { role: "tagsinput" } } %>
 <hr />
 
-
-
 <div class="row">
-		<div class="col-sm-3">
-			<%= f.association :list, collection: f.object.user.lists, include_blank: false %>
-		</div>
-		<div class="col-sm-9">
-			<%= f.input :slug %>
-		</div>
+	<div class="col-sm-3">
+		<%= f.association :list, collection: f.object.user.lists, include_blank: false %>
+	</div>
+	<div class="col-sm-9">
+		<%= f.input :slug %>
+	</div>
 </div>
 
 
@@ -62,7 +59,7 @@
 				<% end %>
 			</ul>
 
-			<%= link_to_add_fields "增加附件", f, :attachments do |b| %>
+			<%= link_to_add_fields "上传附件", f, :attachments do |b| %>
 				<li>
 					<div class="inner">
 						<span></span>
@@ -78,7 +75,7 @@
 
 <div class="form-group">
 	<ul class="nav nav-tabs wd-tabs-radio">
-		<li><span class="form-label">选择状态: </span></li>
+		<li><span class="form-label">选择文章状态: </span></li>
 		<% Article.get_state_values.each do |pair| %>
 			<% name, value = *pair %>
 		<li <%=raw 'class="active"' if f.object.state == value %>>

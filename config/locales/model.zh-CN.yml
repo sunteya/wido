@@ -19,14 +19,19 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
-  hello: "Hello world"
-
-
+zh-CN:
   activerecord:
+    models:
+      article: 文章
+    attributes:
+      article:
+        content: 内容
+        attachments: 内容附件
+        list: 列表
+        slug: 自定义 URL
     symbolizes:
       article:
         state:
-          published: published
-          archived:  archived
-          draft:     draft
+          published: 发布
+          archived:  归档
+          draft:     草稿
