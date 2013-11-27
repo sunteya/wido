@@ -3,15 +3,12 @@
 <div class="view view-main">
 	<%= render partial: "tabs", locals: { tab: :edit } %>
 
-
-	<h2>Edit Article</h2>
-
 	<%= simple_form_for @article, url: collection_route(@collection).article_path(@article), class: 'form-horizontal' do |f| %>
 		<%= render partial: "form", locals: { f: f } %>
 
 		<div class="form-actions">
 			<%= f.button :submit, class: 'btn btn-primary' %>
-			<%= link_to "Back", collection_route(@collection).article_path(@article), class: 'btn btn-default' %>
+			<%#= link_to "Back", collection_route(@collection).article_path(@article), class: 'btn btn-default' %>
 
 			<div class="pull-right">
 				<%= link_to collection_route(@collection).article_path(@article), method: :delete,

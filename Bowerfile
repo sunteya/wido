@@ -1,3 +1,4 @@
 group :vendor do
   asset "bootstrap-datetimepicker", "Eonasdan/bootstrap-datetimepicker#master"
+  asset "bootstrap-tagsinput", "~0.3.9"
 end
