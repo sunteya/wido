@@ -29,6 +29,7 @@ zh-CN:
         attachments: 内容附件
         list: 列表
         slug: 自定义 URL
+        posted_at: 发表时间
     symbolizes:
       article:
         state:

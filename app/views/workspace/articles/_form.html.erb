@@ -11,29 +11,6 @@
 	</div>
 </div>
 
-
-
-
-<!-- <div class="form-group string required article_title"><input class="string required form-control input-lg" id="article_title" name="article[title]" type="text" value="openwrt 上通过 pdnsd 和 dnsmasq 解决 dns 污染" /></div> -->
-
-<!--
-	<fieldset>
-		<label id="advanced-fields-toggle" data-target="#advanced-fields"><input type="checkbox"> 显示高级属性</label>
-
-		<div id="advanced-fields">
-			<div class="row">
-				<div class="col-sm-6">
-					<%= f.input :published_at, as: :datepicker, include_blank: true %>
-				</div>
-				<div class="col-sm-6">
-					<%= f.input :revised_at, as: :datepicker, include_blank: true %>
-				</div>
-			</div>
-
-			<%= f.input :disqus_identifier %>
-		</div>
-	</fieldset>
--->
 <div class="row">
 	<div class="col-sm-9 wd-article-content">
 		<%= f.label :content %>
@@ -91,7 +68,7 @@
 	<div class="tab-pane fade <%= 'active in' if f.object.state == :published %>" id="published">
 		<div class="row">
 			<div class="col-sm-4">
-				<%= f.input :published_at, as: :datepicker, include_blank: true %>
+				<%= f.input :posted_at, as: :datepicker, include_blank: true %>
 			</div>
 		</div>
 	</div>
@@ -100,17 +77,8 @@
 </div>
 
 
+
 <script>
-$("#advanced-fields-toggle").each(function() {
-	var self = $(this);
-	self.find("input[type=checkbox]").change(function(event) {
-		event.preventDefault();
-		var targetSelector = self.data("target");
-		$(targetSelector).toggle(this.checked);
-	}).trigger("change");
-}); 
-
-
 $(".wd-article-attachments").each(function() {
 	var ul = $(this).find("ul");
 	$(this).on("click", ".btn.trash", function(event) {
