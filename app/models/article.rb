@@ -14,6 +14,7 @@
 #  published_at      :datetime
 #  revised_at        :datetime
 #  state             :string(255)
+#  posted_at         :datetime
 #
 
 class Article < ActiveRecord::Base
@@ -22,7 +23,7 @@ class Article < ActiveRecord::Base
   acts_as_taggable
   symbolize :state, in: [ :draft, :published, :archived ], scopes: true, default: :draft
   
-  has_many :attachments
+  has_many :attachments, as: :attachable
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
   after_initialize :ensure_assign_user_by_list
