@@ -7,6 +7,7 @@ class Workspace::ArticlesController < Workspace::BaseController
   
   def show
     @article = @collection.articles.find(params[:id])
+    @article_version = @article.versions.find(params[:ver]) if params[:ver]
   end
 
   def new
