@@ -10,14 +10,16 @@
 </article>
 
 <script type="text/javascript">
-	var disqus_shortname = 'wido';
+	var disqus_shortname = <%=raw Project.settings.disqus_shortname.to_json %>;
 	var disqus_identifier = <%=raw @article.disqus_identifier.to_json %>;
 	var disqus_url = <%=raw article_url(@article).to_json %>;
 	var disqus_script = 'embed.js';
 
-	(function () {
-		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-		dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
-		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	}());
+	if (disqus_shortname && disqus_identifier) {
+		(function () {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		}());
+	}
 </script>
