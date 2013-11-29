@@ -1,0 +1,17 @@
+<%= simple_form_for @user, url: profile_path, html: { class: "profile" } do |f| %>
+	<h1>修改用户信息</h1>
+	<div class="alert alert-success">需要完善下列信息后才能开始使用</div>
+
+	<%= f.input :email, input_html: { disabled: true, class: "input-lg" } %>
+
+	<%= f.input :slug do %>
+		<div class="input-group input-group-lg">
+			<span class="input-group-addon"><%= "#{request.protocol}#{request.host_with_port}/" %></span>
+			<%= f.input :slug, wrapper: "bootstrap-input" %>
+			<span class="input-group-addon">/</span>
+		</div>
+	<% end %>
+
+	<%= ok_url_tag %>
+	<%= f.submit '更新信息', class: "btn btn-primary btn-lg" %>
+<% end %>

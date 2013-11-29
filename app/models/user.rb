@@ -29,8 +29,21 @@ class User < ActiveRecord::Base
 
   before_save :ensure_authentication_token
 
-  # validates :slug, :presence => true, :uniqueness => true
-  
+  validates :slug, presence: true, uniqueness: true, format: { with: /\w+/ }, if: :require_profile_completed?
+
+  def require_profile_completed?
+    !!@require_profile_completed
+  end
+
+  def require_profile_completed!
+    @require_profile_completed = true
+  end
+
+  def profile_completed?
+    self.require_profile_completed!
+    self.valid?
+  end
+
   def inbox
     collation = Collation.new
     collation.user = self
