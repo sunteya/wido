@@ -64,7 +64,7 @@ class Article < ActiveRecord::Base
   before_validation :append_snapshot_to_versions, if: :store_snapshot_to_version?
 
   def store_snapshot_to_version?
-    !!store_snapshot_to_version
+    ActiveRecord::ConnectionAdapters::Column.value_to_boolean(store_snapshot_to_version)
   end
 
   def append_snapshot_to_versions
