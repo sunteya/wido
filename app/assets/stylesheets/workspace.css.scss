@@ -386,7 +386,7 @@ form {
 	background-color: #eee;
 
 	.sign_in {
-		padding-top: 100px;
+		padding-top: 80px;
 		max-width: 450px;
 		margin: 0 auto;
 		text-align: center;
@@ -394,12 +394,40 @@ form {
 		.btn.google {
 			margin-top: 0.5em;
 			padding-left: 45px;
-			
+
 			i {
 				font-size: 1.8em;
 				position: absolute;
 				margin-left: -1.0em;
 			}
+		}
+	}
+
+
+	form.profile {
+		padding-top: 50px;
+		max-width: 400px;
+		margin: 0 auto;
+
+		.user_slug {
+			label {
+				display: block;
+			}
+		}
+
+		.alert, p {
+			font-size: 130%;
+		}
+
+		.form-group {
+			label, .help-block {
+				font-size: 150%;
+			}
+		}
+
+		.btn {
+			margin-top: 1em;
+			width: 100%;
 		}
 	}
 }

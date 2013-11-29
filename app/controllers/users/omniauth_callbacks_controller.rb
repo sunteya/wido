@@ -10,8 +10,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect @user, :event => :authentication
     else
       @user = user_scope.create
-      
-      # TODO slug?
       sign_in_and_redirect @user, :event => :authentication
     end
   end
