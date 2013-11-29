@@ -7,7 +7,12 @@ google_secret: uZgityXPvZoT7o3K6TxidBR9
 # google_key: 340423657049-4q84kfuptsbhpivtk12bgjb3otaje3b1.apps.googleusercontent.com
 # google_secret: WP4aYptq8hBHWqUJ_9CBv6ch
 
+
 google_analytics_tracking_id: UA-27596203-1
+
+
+# disqus_shortname: wido
+
 
 title: "{ wido.me }"
 

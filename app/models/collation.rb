@@ -49,8 +49,8 @@ class Collation
       view.workspace_collation_articles_path(collation.id)
     end
 
-    def article_path(article)
-      view.workspace_collation_article_path(collation.id, article)
+    def article_path(article, *args)
+      view.workspace_collation_article_path(collation.id, article, *args)
     end
 
     def edit_article_path(article)

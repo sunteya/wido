@@ -7,6 +7,7 @@ class Workspace::ArticlesController < Workspace::BaseController
   
   def show
     @article = @collection.articles.find(params[:id])
+    @article_version = @article.versions.find(params[:ver]) if params[:ver]
   end
 
   def new
@@ -26,10 +27,12 @@ class Workspace::ArticlesController < Workspace::BaseController
 
   def edit
     @article = @collection.articles.find(params[:id])
+    @article.taken_snapshot
   end
 
   def update
     @article = @collection.articles.find(params[:id])
+    @article.taken_snapshot
 
     if @article.update_attributes(article_params)
       flash[notice] = 'Article was successfully updated.'
@@ -53,7 +56,15 @@ class Workspace::ArticlesController < Workspace::BaseController
   
 protected
   def article_params
-    params.require(:article).permit(:title, :slug, :state, :tag_list, :list_id, :published_at, :revised_at, :disqus_identifier, :content, attachments_attributes: [ :id, :file, :_destroy ]) if params[:article]
+    params.require(:article).permit(
+          :title, :slug, :state, :tag_list, :list_id, :posted_at, :content, 
+          :store_snapshot_to_version, snapshot_attributes: [ :title, :posted_at ],
+          attachments_attributes: [ :id, :file, :_destroy ]
+        ) if params[:article]
+  end
+
+  def value_to_boolean(value)
+    ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
   end
 
   def find_collection

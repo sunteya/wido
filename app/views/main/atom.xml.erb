@@ -15,7 +15,7 @@
 	<entry>
 		<title type="html"><![CDATA[<%= article.title %>]]></title>
 		<link href="<%= article_url(article) %>"/>
-		<updated><%= (article.revised_at || article.published_at).iso8601 %></updated>
+		<updated><%= article.posted_at.iso8601 %></updated>
 		<id><%= article_url(article) %></id>
 		<content type="html"><![CDATA[<%= article_content(article) %>]]></content>
 	</entry>

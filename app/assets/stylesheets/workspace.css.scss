@@ -1,6 +1,7 @@
 @import "compass";
 @import "bootstrap";
 @import "bootstrap-datetimepicker/build/css/bootstrap-datetimepicker";
+@import "bootstrap-tagsinput/dist/bootstrap-tagsinput";
 @import "font-awesome";
 
 html, body {
@@ -308,4 +309,73 @@ $primary-border-color: #c4c3ce;
 .btn-transparent {
 	background: transparent;
 	border-color: transparent;
+}
+
+
+
+
+form {
+	.form-group {
+		&.article_title {
+			margin-top: 20px;
+			margin-bottom: 5px;
+		}
+
+		&.article_tag_list {
+			margin-bottom: 0;
+		}
+	}
+
+	hr {
+		margin: 0.3em 0 0.5em 0;
+	}
+
+}
+
+.bootstrap-tagsinput {
+	border: none;
+	@include box-shadow(none);
+	margin-bottom: 5px;
+}
+
+
+.wd-tabs-radio {
+	.form-label, label {
+		position: relative;
+		display: block;
+		margin: 0;
+		line-height: 1.428571429;
+	}
+
+	.form-label {
+		font-weight: bold;
+		padding: 10px 10px 10px 0;
+	}
+	
+	label {
+		padding: 10px 15px;
+		margin-right: 2px;
+		border: 1px solid transparent;
+		border-radius: 4px 4px 0 0;
+		cursor: pointer;
+		font-weight: normal;
+
+		&:hover {
+			text-decoration: none;
+			background-color: #eeeeee;
+		}
+
+		input {
+			margin-right: 0.2em;
+		}
+	}
+
+	.active {
+		label {
+			color: #555555;
+			background-color: white;
+			border: 1px solid #dddddd;
+			border-bottom-color: transparent;
+		}
+	}
 }

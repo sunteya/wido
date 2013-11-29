@@ -3,16 +3,17 @@
 <div class="view view-main">
 	<%= render partial: "tabs", locals: { tab: :show } %>
 
+	<% article = @article_version || @article %>
 	<article>
 		<hgroup>
-			<h1><%= @article.title %></h1>
+			<h1><%= article.title %></h1>
 			<p class="tags">
-				<% @article.tags.each do |tag| %>
+				<% article.tags.each do |tag| %>
 					<span class="label label-default"><%= tag %></span>
 				<% end %>
 			</p>
 		</hgroup>
 
-		<%=raw article_content(@article) %>
+		<%=raw article_content(article) %>
 	</article>
 </div>

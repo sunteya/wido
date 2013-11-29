@@ -1,10 +1,42 @@
 <%= fume_nav tab do |n| %>
 <ul class="nav nav-tabs">
 	<%= n.li_tag :show do %>
-		<%= link_to collection_route(@collection).article_path(@article) do %><i class="fa fa-search"></i> 详情<% end %>
+		<% if @article_version %>
+			<%= link_to collection_route(@collection).article_path(@article, ver: @article_version) do %>
+				<i class="fa fa-search"></i> 详情 (<%=l @article_version.posted_at.to_date %>)
+			<% end %>
+		<% else %>
+			<%= link_to collection_route(@collection).article_path(@article) do %>
+				<i class="fa fa-search"></i> 详情
+			<% end %>
+		<% end %>
 	<% end %>
 	<%= n.li_tag :edit do %>
-		<%= link_to collection_route(@collection).edit_article_path(@article) do %><i class="fa fa-pencil"></i> 编辑<% end %>
+		<%= link_to collection_route(@collection).edit_article_path(@article) do %>
+			<i class="fa fa-pencil"></i> 编辑
+		<% end %>
+	<% end if @article_version.nil? %>
+
+	<% if !@article.versions.empty? %>
+	<li class="dropdown pull-right">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+			历史版本 <span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li <%=raw 'class="active"' if @article_version.nil? %>>
+				<%= link_to collection_route(@collection).article_path(@article) do %>
+					当前版本
+				<% end %>
+			</li>
+			<% @article.versions.each do |version| %>
+			<li <%=raw 'class="active"' if version == @article_version %>>
+				<%= link_to collection_route(@collection).article_path(@article, ver: version) do %>
+					<%=l @article.posted_at.to_date %>
+				<% end %>
+			</li>
+			<% end %>
+		</ul>
+	</li>
 	<% end %>
 </ul>
 <% end %>

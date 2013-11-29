@@ -1,94 +1,113 @@
-<div class="form-inputs">
-	<%= f.input :title, label: false, input_html: { class: "input-lg" } %>
+<%= f.input :title, label: false, input_html: { class: "input-lg" } %>
+<%= f.input :tag_list, input_html: { data: { role: "tagsinput" } } %>
+<hr />
 
-	<div class="row">
-		<div class="col-sm-8">
-			<%= f.input :tag_list %>
-		</div>
-		<div class="col-sm-4">
-			<%= f.association :list, collection: f.object.user.lists, include_blank: false %>
-		</div>
+<div class="row">
+	<div class="col-sm-3">
+		<%= f.association :list, collection: f.object.user.lists, include_blank: false %>
 	</div>
-
-	<div class="row">
-		<div class="col-sm-8">
-			<%= f.input :slug %>
-		</div>
-		<div class="col-sm-4">
-			<%= f.input :state, as: :select, collection: Article.get_state_values, include_blank: false %>
-		</div>
+	<div class="col-sm-9">
+		<%= f.input :slug %>
 	</div>
+</div>
 
-	<fieldset>
-		<label id="advanced-fields-toggle" data-target="#advanced-fields"><input type="checkbox"> 显示高级属性</label>
-
-		<div id="advanced-fields">
-			<div class="row">
-				<div class="col-sm-6">
-					<%= f.input :published_at, as: :datepicker, include_blank: true %>
-				</div>
-				<div class="col-sm-6">
-					<%= f.input :revised_at, as: :datepicker, include_blank: true %>
-				</div>
-			</div>
-
-			<%= f.input :disqus_identifier %>
+<div class="row">
+	<div class="col-sm-9 wd-article-content">
+		<%= f.label :content %>
+		<div class="btn-group btn-group-xs">
+			<div class="btn"><i class="fa fa-arrows-alt"></i></div>
 		</div>
-	</fieldset>
-
-	<div class="row">
-		<div class="col-sm-9 wd-article-content">
-			<%= f.label :content %>
-			<div class="btn-group btn-group-xs">
-				<div class="btn"><i class="fa fa-arrows-alt"></i></div>
-			</div>
-			<%= f.input :content, label: false, input_html: { rows: 20 } %>
-		</div>
-		<div class="col-sm-3 wd-article-attachments">
-			<div class="form-group optional article_attachments">
-				<%= f.label :attachments %>
-				
-				<ul>
-					<%= f.fields_for :attachments do |builder| %>
-						<li>
-							<div class="inner">
-								<span><%= builder.object.original_filename %></span>
-								<%= builder.check_box :_destroy %>
-								<a class="btn trash"><i class="fa fa-trash-o"></i></a>
-								<a class="btn undo only-removed"><i class="fa fa-undo"></i></a>
-							</div>
-						</li>
-					<% end %>
-				</ul>
-
-				<%= link_to_add_fields "增加附件", f, :attachments do |b| %>
+		<%= f.input :content, label: false, input_html: { rows: 20 } %>
+	</div>
+	<div class="col-sm-3 wd-article-attachments">
+		<div class="form-group optional article_attachments">
+			<%= f.label :attachments %>
+			
+			<ul>
+				<%= f.fields_for :attachments do |builder| %>
 					<li>
 						<div class="inner">
-							<span></span>
-							<%= b.file_field :file, as: :file %>
+							<span><%= builder.object.original_filename %></span>
+							<%= builder.check_box :_destroy %>
 							<a class="btn trash"><i class="fa fa-trash-o"></i></a>
 							<a class="btn undo only-removed"><i class="fa fa-undo"></i></a>
 						</div>
 					</li>
 				<% end %>
-			</div>
+			</ul>
+
+			<%= link_to_add_fields "上传附件", f, :attachments do |b| %>
+				<li>
+					<div class="inner">
+						<span></span>
+						<%= b.file_field :file, as: :file %>
+						<a class="btn trash"><i class="fa fa-trash-o"></i></a>
+						<a class="btn undo only-removed"><i class="fa fa-undo"></i></a>
+					</div>
+				</li>
+			<% end %>
 		</div>
 	</div>
 </div>
 
+<div class="form-group">
+	<ul class="nav nav-tabs wd-tabs-radio">
+		<li><span class="form-label">选择文章状态: </span></li>
+		<% Article.get_state_values.each do |pair| %>
+			<% name, value = *pair %>
+		<li <%=raw 'class="active"' if f.object.state == value %>>
+			<label data-togglea="tab" data-target="#<%= value %>"><%= f.radio_button :state, value %> <%= name %></label>
+		</li>
+		<% end %>
+	</ul>
+</div>
+
+<div class="tab-content">
+	<div class="tab-pane fade <%= 'active in' if f.object.state == :draft %>" id="draft">
+	</div>
+	<div class="tab-pane fade <%= 'active in' if f.object.state == :published %>" id="published">
+		<div class="row">
+			<div class="col-sm-4">
+				<%= f.input :posted_at, as: :datepicker, include_blank: true %>
+			</div>
+		</div>
+	</div>
+	<div class="tab-pane fade <%= 'active in' if f.object.state == :archived %>" id="archived">
+	</div>
+</div>
+
+<hr />
+
+<div class="form-group">
+	<div class="checkbox">
+		<label>
+			<%= f.check_box :store_snapshot_to_version, class: "fields-toggle", data: { target: "#snapshot-fields" } %> 在文章编辑历史中, 保留之前版本的文章内容
+		</label>
+	</div>
+</div>
+
+<%= f.fields_for :snapshot do |builder| %>
+<div id="snapshot-fields" class="row">
+	<div class="col-sm-3">
+		<%= builder.input :posted_at, as: :datepicker, include_blank: true %>
+	</div>
+	<div class="col-sm-9">
+		<%= builder.input :title %>
+	</div>
+</div>
+<% end %>
+
 
 <script>
 
-
-$("#advanced-fields-toggle").each(function() {
+$(".fields-toggle").each(function() {
 	var self = $(this);
-	self.find("input[type=checkbox]").change(function(event) {
+	self.change(function(event) {
 		event.preventDefault();
 		var targetSelector = self.data("target");
 		$(targetSelector).toggle(this.checked);
 	}).trigger("change");
 }); 
-
 
 $(".wd-article-attachments").each(function() {
 	var ul = $(this).find("ul");
