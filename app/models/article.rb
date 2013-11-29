@@ -59,22 +59,37 @@ class Article < ActiveRecord::Base
     self.user
   end
 
-  def generate_version_snapshot
-    self.published_at = self.posted_at if self.versions.empty?
-    version = self.versions.build(
+  attr_reader :snapshot
+  attr_accessor :store_snapshot_to_version
+  before_validation :append_snapshot_to_versions, if: :store_snapshot_to_version?
+
+  def store_snapshot_to_version?
+    !!store_snapshot_to_version
+  end
+
+  def append_snapshot_to_versions
+    self.versions << @snapshot
+  end
+
+  def taken_snapshot
+    @snapshot = self.versions.scope.new(
       title:     self.title,
       slug:      self.slug,
+      tag_list:  self.tag_list,
       content:   self.content,
       posted_at: self.posted_at
     )
 
     self.attachments.each do |attachment|
-      version.attachments.build(
+      @snapshot.attachments.build(
         original_filename: attachment.original_filename,
         file: attachment.file
       )
     end
-
-    version
   end
+
+  def snapshot_attributes=(values)
+    @snapshot.attributes = values
+  end
+
 end

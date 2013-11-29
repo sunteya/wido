@@ -26,13 +26,12 @@ class Workspace::ArticlesController < Workspace::BaseController
 
   def edit
     @article = @collection.articles.find(params[:id])
-    @store_prev_content = true
+    @article.taken_snapshot
   end
 
   def update
     @article = @collection.articles.find(params[:id])
-    @store_prev_content = value_to_boolean(params[:store_prev_content])
-    @article.generate_version_snapshot if @store_prev_content
+    @article.taken_snapshot
 
     if @article.update_attributes(article_params)
       flash[notice] = 'Article was successfully updated.'
@@ -56,7 +55,11 @@ class Workspace::ArticlesController < Workspace::BaseController
   
 protected
   def article_params
-    params.require(:article).permit(:title, :slug, :state, :tag_list, :list_id, :posted_at, :content, attachments_attributes: [ :id, :file, :_destroy ]) if params[:article]
+    params.require(:article).permit(
+          :title, :slug, :state, :tag_list, :list_id, :posted_at, :content, 
+          :store_snapshot_to_version, snapshot_attributes: [ :title, :posted_at ],
+          attachments_attributes: [ :id, :file, :_destroy ]
+        ) if params[:article]
   end
 
   def value_to_boolean(value)

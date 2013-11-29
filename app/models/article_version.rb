@@ -22,6 +22,9 @@ class ArticleVersion < ActiveRecord::Base
   after_initialize :ensure_assign_user_by_article
   before_save :ensure_assign_user_by_article
 
+  validates :posted_at, presence: true
+  validates :title, presence: true
+
   def ensure_assign_user_by_article
     self.user ||= self.article.user if self.article
   end

@@ -30,6 +30,9 @@ zh-CN:
         list: 列表
         slug: 自定义 URL
         posted_at: 发表时间
+      article_version:
+        posted_at: 旧版本发布时间
+        title: 旧版本标题
     symbolizes:
       article:
         state:
