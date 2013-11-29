@@ -379,3 +379,27 @@ form {
 		}
 	}
 }
+
+
+
+.users-page {
+	background-color: #eee;
+
+	.sign_in {
+		padding-top: 100px;
+		max-width: 450px;
+		margin: 0 auto;
+		text-align: center;
+
+		.btn.google {
+			margin-top: 0.5em;
+			padding-left: 45px;
+			
+			i {
+				font-size: 1.8em;
+				position: absolute;
+				margin-left: -1.0em;
+			}
+		}
+	}
+}

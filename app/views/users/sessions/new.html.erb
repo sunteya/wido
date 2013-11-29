@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Wido2 Login</title>
-	<%= stylesheet_link_tag    "application", :media => "all" %>
-	<%= javascript_include_tag "application" %>
-	<%= csrf_meta_tags %>
-</head>
-<body>
-
-<div class="container">
-	<%= link_to "Sign in with Google Oauth2", user_omniauth_authorize_path(:google_oauth2) %>
+<div class="sign_in">
+	<h2>请使用 Google 帐号登录系统</h2>
+	
+	<%= link_to user_omniauth_authorize_path(:google_oauth2), class: "btn btn-danger btn-lg google" do %>
+		<i class="fa fa-google-plus"></i> 使用 Google Oauth2 登录
+	<% end %>
 </div>
-
-</body>
-</html>
