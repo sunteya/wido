@@ -26,6 +26,8 @@ class Article < ActiveRecord::Base
   has_many :attachments, as: :attachable
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
+  has_many :versions, class_name: ArticleVersion.to_s, autosave: true
+
   after_initialize :ensure_assign_user_by_list
   before_save :ensure_assign_user_by_list
   before_save :update_posted_at
@@ -55,5 +57,24 @@ class Article < ActiveRecord::Base
 
   def author
     self.user
+  end
+
+  def generate_version_snapshot
+    self.published_at = self.posted_at if self.versions.empty?
+    version = self.versions.build(
+      title:     self.title,
+      slug:      self.slug,
+      content:   self.content,
+      posted_at: self.posted_at
+    )
+
+    self.attachments.each do |attachment|
+      version.attachments.build(
+        original_filename: attachment.original_filename,
+        file: attachment.file
+      )
+    end
+
+    version
   end
 end

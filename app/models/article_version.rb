@@ -13,11 +13,11 @@
 #  updated_at :datetime
 #
 
-class ArticleVersions < ActiveRecord::Base
+class ArticleVersion < ActiveRecord::Base
   belongs_to :article
   belongs_to :user
   acts_as_taggable
-  has_many :attachments, as: :attachable
+  has_many :attachments, as: :attachable, autosave: true
 
   after_initialize :ensure_assign_user_by_article
   before_save :ensure_assign_user_by_article
