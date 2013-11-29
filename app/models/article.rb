@@ -68,7 +68,7 @@ class Article < ActiveRecord::Base
   end
 
   def append_snapshot_to_versions
-    self.versions << @snapshot
+    self.versions << @snapshot if @snapshot
   end
 
   def taken_snapshot

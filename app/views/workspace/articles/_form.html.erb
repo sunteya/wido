@@ -78,25 +78,27 @@
 
 <hr />
 
-<div class="form-group">
-	<div class="checkbox">
-		<label>
-			<%= f.check_box :store_snapshot_to_version, class: "fields-toggle", data: { target: "#snapshot-fields" } %> 在文章编辑历史中, 保留之前版本的文章内容
-		</label>
-	</div>
-</div>
 
-<%= f.fields_for :snapshot do |builder| %>
-<div id="snapshot-fields" class="row">
-	<div class="col-sm-3">
-		<%= builder.input :posted_at, as: :datepicker, include_blank: true %>
+<% if f.object.present? %>
+	<div class="form-group">
+		<div class="checkbox">
+			<label>
+				<%= f.check_box :store_snapshot_to_version, class: "fields-toggle", data: { target: "#snapshot-fields" } %> 在文章编辑历史中, 保留之前版本的文章内容
+			</label>
+		</div>
 	</div>
-	<div class="col-sm-9">
-		<%= builder.input :title %>
+
+	<%= f.fields_for :snapshot do |builder| %>
+	<div id="snapshot-fields" class="row">
+		<div class="col-sm-3">
+			<%= builder.input :posted_at, as: :datepicker, include_blank: true %>
+		</div>
+		<div class="col-sm-9">
+			<%= builder.input :title %>
+		</div>
 	</div>
-</div>
+	<% end %>
 <% end %>
-
 
 <script>
 
