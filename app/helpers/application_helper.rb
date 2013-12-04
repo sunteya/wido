@@ -144,11 +144,11 @@ HTML
     end
   end
 
-  def article_content(article)
-    content = article.content || ""
+  def article_content(body)
+    content = body.content || ""
     convert = content.gsub(/\{POST_URL\}\/[^"')]+/) do |attachment_name|
       attachment_name.gsub!("{POST_URL}/", "")
-      attachment = article.attachments.where(original_filename: attachment_name).first
+      attachment = body.attachments.where(original_filename: attachment_name).first
       attachment.file.url if attachment
     end
 

@@ -5,7 +5,6 @@
 #  id         :integer          not null, primary key
 #  title      :string(255)
 #  slug       :string(255)
-#  content    :text
 #  posted_at  :datetime
 #  article_id :integer
 #  user_id    :integer

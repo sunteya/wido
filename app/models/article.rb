@@ -5,7 +5,6 @@
 #  id                :integer          not null, primary key
 #  title             :string(255)
 #  slug              :string(255)
-#  content           :text
 #  user_id           :integer
 #  list_id           :integer
 #  created_at        :datetime
@@ -23,12 +22,11 @@ class Article < ActiveRecord::Base
   acts_as_taggable
   symbolize :state, in: [ :draft, :published, :archived ], scopes: true, default: :draft, methods: true
   
-  has_one :current, -> { where(context: "current") }, class_name: ArticleBody.to_s, as: :postable
-  accepts_nested_attributes_for :current
-  after_initialize :build_current, unless: :current
+  has_one :body, -> { where(context: "current") }, class_name: ArticleBody.to_s, as: :postable
+  accepts_nested_attributes_for :body
+  after_initialize :build_body, unless: :body
 
   has_one :editing, -> { where(context: "editing") }, class_name: ArticleBody.to_s
-  has_many :archives, -> { where(context: "archive") }, class_name: ArticleBody.to_s
 
   has_many :versions, class_name: ArticleVersion.to_s, autosave: true
 
@@ -40,7 +38,7 @@ class Article < ActiveRecord::Base
   validates :state, presence: true
   validates :posted_at, presence: true, if: :published?
   
-  default_scope -> { joins(:current).includes(:current) }
+  default_scope -> { joins(:body).includes(:body) }
   
   scope :published, -> { state(:published).reorder(posted_at: :desc) }
 
@@ -66,11 +64,11 @@ class Article < ActiveRecord::Base
   end
 
   def content
-    self.current.content
+    self.body.content
   end
 
   def attachments
-    self.current.attachments
+    self.body.attachments
   end
 
   def author
