@@ -27,7 +27,9 @@
 				<%= f.fields_for :attachments do |builder| %>
 					<li>
 						<div class="inner">
-							<span><%= builder.object.original_filename %></span>
+							<span>
+								<%= link_to builder.object.original_filename, public_path(builder.object.file.url) %>
+							</span>
 							<%= builder.check_box :_destroy %>
 							<a class="btn trash"><i class="fa fa-trash-o"></i></a>
 							<a class="btn undo only-removed"><i class="fa fa-undo"></i></a>
@@ -128,6 +130,7 @@ $(".wd-article-attachments").each(function() {
 			li.find("input[type=file]").removeAttr("disabled");
 		})
 		.on("click", ".add_fields", function(event) {
+			event.preventDefault();
 			var time = new Date().getTime();
 			var regexp = new RegExp($(this).data('id'), 'g');
 			var content = $(this).data('fields').replace(regexp, time);
