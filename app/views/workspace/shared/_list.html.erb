@@ -1,6 +1,6 @@
 <div class="view view-aside">
 	<ul class="list">
-		<% collection.articles.order("created_at DESC").each do |article| %>
+		<% collection.articles.order(created_at: :desc).each do |article| %>
 		<li class="article">
 			<hgroup>
 				<h4>
@@ -23,7 +23,7 @@
 		<% end %>
 
 
-		<% collection.links.order("created_at DESC").each do |link| %>
+		<% collection.links.order(created_at: :desc).each do |link| %>
 		<li class="link">
 			<hgroup>
 				<h4>

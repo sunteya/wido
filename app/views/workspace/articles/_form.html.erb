@@ -11,20 +11,22 @@
 	</div>
 </div>
 
+
+<%= f.fields_for :current do |cf| %>
 <div class="row">
 	<div class="col-sm-9 wd-article-content">
-		<%= f.label :content %>
+		<%= cf.label :content %>
 		<div class="btn-group btn-group-xs">
 			<div class="btn"><i class="fa fa-arrows-alt"></i></div>
 		</div>
-		<%= f.input :content, label: false, input_html: { rows: 20 } %>
+		<%= cf.input :content, label: false, input_html: { rows: 20 } %>
 	</div>
 	<div class="col-sm-3 wd-article-attachments">
 		<div class="form-group optional article_attachments">
-			<%= f.label :attachments %>
+			<%= cf.label :attachments %>
 			
 			<ul>
-				<%= f.fields_for :attachments do |builder| %>
+				<%= cf.fields_for :attachments do |builder| %>
 					<li>
 						<div class="inner">
 							<span>
@@ -38,7 +40,7 @@
 				<% end %>
 			</ul>
 
-			<%= link_to_add_fields "上传附件", f, :attachments do |b| %>
+			<%= link_to_add_fields "上传附件", cf, :attachments do |b| %>
 				<li>
 					<div class="inner">
 						<span></span>
@@ -51,6 +53,7 @@
 		</div>
 	</div>
 </div>
+<% end %>
 
 <div class="form-group">
 	<ul class="nav nav-tabs wd-tabs-radio">

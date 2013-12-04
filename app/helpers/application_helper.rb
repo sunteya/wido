@@ -145,7 +145,7 @@ HTML
   end
 
   def article_content(article)
-    content = article.content
+    content = article.content || ""
     convert = content.gsub(/\{POST_URL\}\/[^"')]+/) do |attachment_name|
       attachment_name.gsub!("{POST_URL}/", "")
       attachment = article.attachments.where(original_filename: attachment_name).first

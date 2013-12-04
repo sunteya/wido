@@ -23,8 +23,12 @@ class Article < ActiveRecord::Base
   acts_as_taggable
   symbolize :state, in: [ :draft, :published, :archived ], scopes: true, default: :draft, methods: true
   
-  has_many :attachments, as: :attachable
-  accepts_nested_attributes_for :attachments, allow_destroy: true
+  has_one :current, -> { where(context: "current") }, class_name: ArticleBody.to_s
+  accepts_nested_attributes_for :current
+  after_initialize :build_current, unless: :current
+
+  has_one :editing, -> { where(context: "editing") }, class_name: ArticleBody.to_s
+  has_many :archives, -> { where(context: "archive") }, class_name: ArticleBody.to_s
 
   has_many :versions, class_name: ArticleVersion.to_s, autosave: true
 
@@ -36,8 +40,14 @@ class Article < ActiveRecord::Base
   validates :state, presence: true
   validates :posted_at, presence: true, if: :published?
   
-
+  default_scope -> { joins(:current).includes(:current) }
+  
   scope :published, -> { state(:published).reorder(posted_at: :desc) }
+
+  def editing=(value)
+    value.attributes = association(:editing).scope.scope_attributes
+    association(:editing).writer(value)
+  end
 
   def ensure_assign_user_by_list
     self.user ||= self.list.user if self.list_id_changed?
@@ -53,6 +63,14 @@ class Article < ActiveRecord::Base
 
   def collection
     self.list
+  end
+
+  def content
+    self.current.content
+  end
+
+  def attachments
+    self.current.attachments
   end
 
   def author

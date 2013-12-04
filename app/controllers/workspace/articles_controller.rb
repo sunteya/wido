@@ -11,11 +11,11 @@ class Workspace::ArticlesController < Workspace::BaseController
   end
 
   def new
-    @article = @collection.articles.scoped.new(article_params)
+    @article = @collection.articles.scope.new(article_params)
   end
 
   def create
-    @article = @collection.articles.scoped.new(article_params)
+    @article = @collection.articles.scope.new(article_params)
 
     if @article.save
       flash[:notice] = 'Article was successfully created.'
@@ -59,7 +59,7 @@ protected
     params.require(:article).permit(
           :title, :slug, :state, :tag_list, :list_id, :posted_at, :content, 
           :store_snapshot_to_version, snapshot_attributes: [ :title, :posted_at ],
-          attachments_attributes: [ :id, :file, :_destroy ]
+          current_attributes: [ :content, attachments_attributes: [ :id, :file, :_destroy ] ]
         ) if params[:article]
   end
 
