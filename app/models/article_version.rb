@@ -24,14 +24,6 @@ class ArticleVersion < ActiveRecord::Base
   validates :posted_at, presence: true
   validates :title, presence: true
 
-  def content
-    self.body.content
-  end
-
-  def attachments
-    self.body.attachments
-  end
-
   def ensure_assign_user_by_article
     self.user ||= self.article.user if self.article
   end

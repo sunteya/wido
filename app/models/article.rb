@@ -38,7 +38,7 @@ class Article < ActiveRecord::Base
   validates :state, presence: true
   validates :posted_at, presence: true, if: :published?
   
-  default_scope -> { joins(:body).includes(:body) }
+  # default_scope -> { joins(:body).includes(:body) }
   
   scope :published, -> { state(:published).reorder(posted_at: :desc) }
 
@@ -61,14 +61,6 @@ class Article < ActiveRecord::Base
 
   def collection
     self.list
-  end
-
-  def content
-    self.body.content
-  end
-
-  def attachments
-    self.body.attachments
   end
 
   def author
@@ -95,9 +87,9 @@ class Article < ActiveRecord::Base
       posted_at: self.posted_at,
     )
 
-    body = @snapshot.build_body(content: self.content)
+    body = @snapshot.build_body(content: self.body.content)
 
-    self.attachments.each do |attachment|
+    self.body.attachments.each do |attachment|
       body.attachments.build(
         original_filename: attachment.original_filename,
         file: attachment.file

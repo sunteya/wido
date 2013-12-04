@@ -59,7 +59,7 @@ protected
     params.require(:article).permit(
           :title, :slug, :state, :tag_list, :list_id, :posted_at, :content, 
           :store_snapshot_to_version, snapshot_attributes: [ :title, :posted_at ],
-          current_attributes: [ :id, :content, attachments_attributes: [ :id, :file, :_destroy ] ]
+          body_attributes: [ :id, :content, attachments_attributes: [ :id, :file, :_destroy ] ]
         ) if params[:article]
   end
 
