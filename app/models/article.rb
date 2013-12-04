@@ -23,7 +23,7 @@ class Article < ActiveRecord::Base
   acts_as_taggable
   symbolize :state, in: [ :draft, :published, :archived ], scopes: true, default: :draft, methods: true
   
-  has_one :current, -> { where(context: "current") }, class_name: ArticleBody.to_s
+  has_one :current, -> { where(context: "current") }, class_name: ArticleBody.to_s, as: :postable
   accepts_nested_attributes_for :current
   after_initialize :build_current, unless: :current
 
@@ -94,12 +94,13 @@ class Article < ActiveRecord::Base
       title:     self.title,
       slug:      self.slug,
       tag_list:  self.tag_list,
-      content:   self.content,
-      posted_at: self.posted_at
+      posted_at: self.posted_at,
     )
 
+    body = @snapshot.build_body(content: self.content)
+
     self.attachments.each do |attachment|
-      @snapshot.attachments.build(
+      body.attachments.build(
         original_filename: attachment.original_filename,
         file: attachment.file
       )

@@ -17,13 +17,21 @@ class ArticleVersion < ActiveRecord::Base
   belongs_to :article
   belongs_to :user
   acts_as_taggable
-  has_many :attachments, as: :attachable, autosave: true
+  has_one :body, class_name: ArticleBody.to_s, as: :postable, autosave: true
 
   after_initialize :ensure_assign_user_by_article
   before_save :ensure_assign_user_by_article
 
   validates :posted_at, presence: true
   validates :title, presence: true
+
+  def content
+    self.body.content
+  end
+
+  def attachments
+    self.body.attachments
+  end
 
   def ensure_assign_user_by_article
     self.user ||= self.article.user if self.article
