@@ -38,8 +38,6 @@ class Article < ActiveRecord::Base
   validates :state, presence: true
   validates :posted_at, presence: true, if: :published?
   
-  # default_scope -> { joins(:body).includes(:body) }
-  
   scope :published, -> { state(:published).reorder(posted_at: :desc) }
 
   def editing=(value)
