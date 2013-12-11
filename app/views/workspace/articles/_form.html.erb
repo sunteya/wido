@@ -12,19 +12,30 @@
 </div>
 
 
-<%= f.fields_for :body do |cf| %>
-<div class="row">
-	<div class="col-sm-9 wd-article-content">
-		<%= cf.label :content %>
-		<div class="btn-group btn-group-xs">
-			<div class="btn"><i class="fa fa-arrows-alt"></i></div>
-		</div>
-		<%= cf.input :content, label: false, input_html: { rows: 20 } %>
+<% article_body = f.object.persisted_body %>
+<%= simple_fields_for article_body do |cf| %>
+<%= cf.label :content %>
+<div class="wd-editor form-group">
+	<div class="wd-editor-toolbar btn-toolbar" role="toolbar">
+		<a data-loading-text="正在保存" class="save btn btn-default btn-xs" href="<%= workspace_article_body_path(article_body) %>" data-method="put">立即保存</a>
+
+		<p class="btn-text btn-xs">
+			最后保存于: <span class="save-status">尚未保存</span> (<a href="<%= workspace_article_body_path(article_body) %>" target="_blank">预览</a>)
+		</p>
+
+		<button type="button" disabled="disabled" class="fullscreen btn btn-default btn-transparent btn-xs pull-right">
+			<i class="fa fa-arrows-alt"></i>
+		</button>
 	</div>
-	<div class="col-sm-3 wd-article-attachments">
-		<div class="form-group optional article_attachments">
+
+	<div class="wd-editor-body">
+		<div class="wd-editor-content">
+			<%= cf.input :content, wrapper: "bootstrap-input", input_html: { rows: 20 } %>
+		</div>
+
+		<div class="wd-editor-sider wd-article-attachments">
 			<%= cf.label :attachments %>
-			
+
 			<ul>
 				<%= cf.fields_for :attachments do |builder| %>
 					<li>
@@ -152,4 +163,68 @@ $(".wd-article-attachments").each(function() {
 			fileInput[0].click();
 		});
 });
+
+
+$(".wd-editor").each(function() {
+	var editor = $(this);
+
+	var editor = $(".wd-editor");
+	var saveBtn = editor.find(".btn.save");
+	window.saveStatus = editor.find(".save-status");
+	$.extend(saveStatus, {
+		touch: function() {
+			$(this).data("savedTime", new Date());
+			this.update();
+		},
+
+		update: function() {
+			clearTimeout(this.updateTimeoutId);
+			console.log("update")
+
+			var time = $(this).data("savedTime");
+			if (time) {
+				$(this).text(moment(time).fromNow());
+			}
+
+			this.updateTimeoutId = setTimeout($.proxy(this.update, this), 5 * 1000);
+		}
+	});
+
+
+	saveBtn.click(function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+
+		var self = $(this);
+		var url = $(this).prop("href");
+		var method = $(this).data("method") || "POST";
+		var fd = new FormData();
+		$.each(editor.find("textarea, input, select").serializeArray(), function(index, item) {
+			fd.append(this["name"], this["value"]);
+		});
+
+		$.each(editor.find("input[type=file]").not("[disabled]"), function(index, input) {
+			fd.append(this.name, this.files[0]);
+		});
+
+		$(this).button("loading");
+		$.ajax(url, {
+			type: method,
+			data: fd,
+			contentType: false,
+			processData: false
+
+		}).success(function(data) {
+			editor.find(".removed").fadeOut(function() { $(this).remove() });
+			self.button("reset");
+			saveStatus.touch();
+
+		}).error(function(xhr, status) {
+			console.log(xhr, status)
+			alert("保存失败");
+			self.button("reset");
+		})
+	});
+});
+
 </script>

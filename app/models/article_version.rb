@@ -25,6 +25,6 @@ class ArticleVersion < ActiveRecord::Base
   validates :title, presence: true
 
   def ensure_assign_user_by_article
-    self.user ||= self.article.user if self.article
+    self.user_id = self.article.user_id if self.article
   end
 end

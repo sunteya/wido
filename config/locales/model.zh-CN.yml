@@ -25,11 +25,12 @@ zh-CN:
       article: 文章
     attributes:
       article:
-        content: 内容
-        attachments: 内容附件
         list: 列表
         slug: 自定义 URL
         posted_at: 发表时间
+      article_body:
+        content: 内容
+        attachments: 相关附件
       article_version:
         posted_at: 旧版本发布时间
         title: 旧版本标题

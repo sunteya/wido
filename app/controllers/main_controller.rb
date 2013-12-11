@@ -10,4 +10,7 @@ class MainController < ApplicationController
   def archives
     @articles = Article.state([:published, :archived]).reorder("posted_at ASC")
   end
+
+  def preivew
+  end
 end

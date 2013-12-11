@@ -17,21 +17,22 @@
 #
 
 class Article < ActiveRecord::Base
-  belongs_to :user
   belongs_to :list
+  belongs_to :user
+
   acts_as_taggable
   symbolize :state, in: [ :draft, :published, :archived ], scopes: true, default: :draft, methods: true
   
   has_one :body, -> { where(context: "current") }, class_name: ArticleBody.to_s, as: :postable
   accepts_nested_attributes_for :body
-  after_initialize :build_body, unless: :body
-
-  has_one :editing, -> { where(context: "editing") }, class_name: ArticleBody.to_s
-
+  has_one :editing, -> { where(context: "editing") }, class_name: ArticleBody.to_s, as: :postable
+  
   has_many :versions, class_name: ArticleVersion.to_s, autosave: true
 
   after_initialize :ensure_assign_user_by_list
   before_save :ensure_assign_user_by_list
+
+  after_initialize :build_body, unless: :body
   before_save :update_posted_at
 
   validates :title, presence: true
@@ -40,9 +41,17 @@ class Article < ActiveRecord::Base
   
   scope :published, -> { state(:published).reorder(posted_at: :desc) }
 
-  def editing=(value)
-    value.attributes = association(:editing).scope.scope_attributes
-    association(:editing).writer(value)
+  def persisted_body
+    if self.body.new_record?
+      self.body.user = self.user
+      self.body.save 
+    end
+    
+    self.body
+  end
+
+  def persisted_editing!
+    self.editing ||= ArticleBody.duplicate!(self.body, association(:editing).scope.scope_attributes)
   end
 
   def ensure_assign_user_by_list
