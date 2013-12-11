@@ -3,7 +3,7 @@
 <div class="view view-main">
 	<h1>添加文章</h1>
 
-	<%= simple_form_for @article, url: collection_route(@collection).articles_path do |f| %>
+	<%= simple_form_for @article, url: collection_route(@collection).articles_path, html: { multipart: true } do |f| %>
 		<%= render partial: "form", locals: { f: f } %>
 
 		<div class="form-actions">

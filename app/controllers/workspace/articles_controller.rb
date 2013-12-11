@@ -16,6 +16,8 @@ class Workspace::ArticlesController < Workspace::BaseController
 
   def create
     @article = @collection.articles.scope.new(article_params)
+    @article_body = current_user.article_bodies.find(params[:article_body_id])
+    @article_body.update_attributes!(article_body_params)
 
     if @article.save
       flash[:notice] = 'Article was successfully created.'
@@ -33,6 +35,9 @@ class Workspace::ArticlesController < Workspace::BaseController
   def update
     @article = @collection.articles.find(params[:id])
     @article.taken_snapshot
+    @article_body = current_user.article_bodies.find(params[:article_body_id])
+    @article_body.update_attributes!(article_body_params)
+    @article.editing_body_id = @article_body.id
 
     if @article.update_attributes(article_params)
       flash[notice] = 'Article was successfully updated.'
@@ -57,10 +62,16 @@ class Workspace::ArticlesController < Workspace::BaseController
 protected
   def article_params
     params.require(:article).permit(
-          :title, :slug, :state, :tag_list, :list_id, :posted_at, :content, 
+          :title, :slug, :state, :tag_list, :list_id, :posted_at, :content, :editing_body_id,
           :store_snapshot_to_version, snapshot_attributes: [ :title, :posted_at ],
           body_attributes: [ :id, :content, attachments_attributes: [ :id, :file, :_destroy ] ]
         ) if params[:article]
+  end
+
+  def article_body_params
+    params.require(:article_body).permit(
+          :id, :content, attachments_attributes: [ :id, :file, :_destroy ]
+        ) if params[:article_body]
   end
 
   def value_to_boolean(value)

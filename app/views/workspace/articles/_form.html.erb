@@ -12,7 +12,10 @@
 </div>
 
 
-<% article_body = f.object.persisted_body %>
+<% article_body = f.object.persisted_editing! %>
+<%= hidden_field_tag :article_body_id, article_body.id %>
+<%#= f.hidden_field :editing_body_id, value: article_body.id %>
+
 <%= simple_fields_for article_body do |cf| %>
 <%= cf.label :content %>
 <div class="wd-editor form-group">
@@ -44,6 +47,7 @@
 								<%= link_to builder.object.original_filename, public_path(builder.object.file.url) %>
 							</span>
 							<%= builder.check_box :_destroy %>
+							<%= builder.hidden_field :id %>
 							<a class="btn trash"><i class="fa fa-trash-o"></i></a>
 							<a class="btn undo only-removed"><i class="fa fa-undo"></i></a>
 						</div>

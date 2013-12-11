@@ -10,6 +10,7 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #  postable_type :string(255)
+#  user_id       :integer
 #
 
 class ArticleBody < ActiveRecord::Base
@@ -39,12 +40,5 @@ class ArticleBody < ActiveRecord::Base
 
     target.save
     target
-  end
-
-  def to_new(attributes = {})
-    a = self
-    b = self.class.new(source.attributes)
-
-    target.attributes = attributes
   end
 end

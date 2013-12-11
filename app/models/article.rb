@@ -14,6 +14,8 @@
 #  revised_at        :datetime
 #  state             :string(255)
 #  posted_at         :datetime
+#  body_id           :integer
+#  editing_id        :integer
 #
 
 class Article < ActiveRecord::Base
@@ -23,17 +25,21 @@ class Article < ActiveRecord::Base
   acts_as_taggable
   symbolize :state, in: [ :draft, :published, :archived ], scopes: true, default: :draft, methods: true
   
-  has_one :body, -> { where(context: "current") }, class_name: ArticleBody.to_s, as: :postable
+  belongs_to :body, class_name: ArticleBody.to_s
   accepts_nested_attributes_for :body
-  has_one :editing, -> { where(context: "editing") }, class_name: ArticleBody.to_s, as: :postable
-  
+
+  attr_accessor :editing_body_id
+  # belongs_to :editing, class_name: ArticleBody.to_s  
+
   has_many :versions, class_name: ArticleVersion.to_s, autosave: true
 
   after_initialize :ensure_assign_user_by_list
   before_save :ensure_assign_user_by_list
 
-  after_initialize :build_body, unless: :body
+  after_initialize :build_body, unless: ->(m) { m.body_id }
   before_save :update_posted_at
+
+  before_validation :migrate_editing_body if :editing_body_id
 
   validates :title, presence: true
   validates :state, presence: true
@@ -41,17 +47,19 @@ class Article < ActiveRecord::Base
   
   scope :published, -> { state(:published).reorder(posted_at: :desc) }
 
-  def persisted_body
-    if self.body.new_record?
-      self.body.user = self.user
-      self.body.save 
-    end
-    
-    self.body
+  def build_body
+    body = super
+    body.user_id = self.user_id if self.user_id
+    body
+  end
+
+  def migrate_editing_body
+    editing_body = self.user.article_bodies.find(self.editing_body_id)
+    self.body = editing_body
   end
 
   def persisted_editing!
-    self.editing ||= ArticleBody.duplicate!(self.body, association(:editing).scope.scope_attributes)
+    ArticleBody.duplicate!(self.body)
   end
 
   def ensure_assign_user_by_list
