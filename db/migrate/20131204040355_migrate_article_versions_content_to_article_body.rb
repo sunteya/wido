@@ -29,8 +29,12 @@ class MigrateArticleVersionsContentToArticleBody < ActiveRecord::Migration
         body.content = version.content
         body.save
 
-        Attachment.where(attachable_type: "ArticleVersion", attachable_id: version.id)
-                  .update_all(attachable_type: "ArticleBody", attachable_id: body.id)
+        Attachment.where(attachable_type: "ArticleVersion", attachable_id: version.id).each do |attachment|
+          source = Rails.root.join("public/system/attachment/articleversion-#{version.id}")
+          target = Rails.root.join("public/system/attachment/articlebody-#{body.id}")
+          FileUtils.mv source, target if source.exist?
+          attachment.update_attributes!(attachable_type: "ArticleBody", attachable_id: body.id)
+        end
       end
     end
 

@@ -14,9 +14,13 @@ class MigrateArticleContentToArticleBody < ActiveRecord::Migration
       if body.new_record?
         body.content = article.content
         body.save
-
-        Attachment.where(attachable_type: "Article", attachable_id: article.id)
-                  .update_all(attachable_type: "ArticleBody", attachable_id: body.id)
+        
+        Attachment.where(attachable_type: "Article", attachable_id: article.id).each do |attachment|
+          source = Rails.root.join("public/system/attachment/article-#{article.id}")
+          target = Rails.root.join("public/system/attachment/articlebody-#{body.id}")
+          FileUtils.mv source, target if source.exist?
+          attachment.update_attributes!(attachable_type: "ArticleBody", attachable_id: body.id)
+        end
       end
     end
 
