@@ -10,13 +10,14 @@
 #  user_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  body_id    :integer
 #
 
 class ArticleVersion < ActiveRecord::Base
   belongs_to :article
   belongs_to :user
   acts_as_taggable
-  has_one :body, class_name: ArticleBody.to_s, as: :postable, autosave: true
+  belongs_to :body, class_name: ArticleBody.to_s, autosave: true
 
   after_initialize :ensure_assign_user_by_article
   before_save :ensure_assign_user_by_article

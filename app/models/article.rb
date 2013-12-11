@@ -102,14 +102,8 @@ class Article < ActiveRecord::Base
       posted_at: self.posted_at,
     )
 
-    body = @snapshot.build_body(content: self.body.content)
-
-    self.body.attachments.each do |attachment|
-      body.attachments.build(
-        original_filename: attachment.original_filename,
-        file: attachment.file
-      )
-    end
+    @snapshot.body = ArticleBody.duplicate(self.body)
+    @snapshot
   end
 
   def snapshot_attributes=(values)

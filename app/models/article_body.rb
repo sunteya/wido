@@ -26,7 +26,7 @@ class ArticleBody < ActiveRecord::Base
     self.user_id = self.postable.user_id if self.postable
   end
 
-  def self.duplicate!(source, override_attributes = {})
+  def self.duplicate(source, override_attributes = {})
     target = self.new
     target.attributes = source.attributes.reject { |k| %w[ id updated_at created_at ].include?(k) }
     target.attributes = override_attributes
@@ -38,6 +38,11 @@ class ArticleBody < ActiveRecord::Base
       )
     end
 
+    target
+  end
+
+  def self.duplicate!(*args)
+    target = self.duplicate(*args)
     target.save
     target
   end
