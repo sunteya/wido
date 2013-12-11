@@ -6,10 +6,10 @@ class ReverseArticleVersionBodyReferences < ActiveRecord::Migration
   end
 
   def change
-
     change_table :article_versions do |t|
       t.belongs_to :body, index: true
     end
+    ArticleVersion.reset_column_information
 
     ArticleBody.where(postable_type: "ArticleVersion").find_each do |body|
       article_version = ArticleVersion.where(id: body.postable_id).first

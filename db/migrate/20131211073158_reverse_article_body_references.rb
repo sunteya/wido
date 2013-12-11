@@ -7,11 +7,11 @@ class ReverseArticleBodyReferences < ActiveRecord::Migration
   end
 
   def change
-
     change_table :articles do |t|
       t.belongs_to :body, index: true
       t.belongs_to :editing, index: true
     end
+    Article.reset_column_information
 
     ArticleBody.where(postable_type: "Article", context: "current").find_each do |body|
       article = Article.where(id: body.postable_id).first
