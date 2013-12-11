@@ -15,7 +15,6 @@
 #  state             :string(255)
 #  posted_at         :datetime
 #  body_id           :integer
-#  editing_id        :integer
 #
 
 class Article < ActiveRecord::Base
