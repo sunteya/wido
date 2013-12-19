@@ -2,7 +2,8 @@
 
 $baseFontSize: 18px;
 $baseLineHeight: $baseFontSize * 1.5;
-@import "bootstrap";
+@import "bootstrap.extend";
+
 @import "font-awesome";
 @import "article";
 

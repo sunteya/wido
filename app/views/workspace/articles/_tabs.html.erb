@@ -31,7 +31,7 @@
 			<% @article.versions.each do |version| %>
 			<li <%=raw 'class="active"' if version == @article_version %>>
 				<%= link_to collection_route(@collection).article_path(@article, ver: version) do %>
-					<%=l @article.posted_at.to_date %>
+					<%=l version.posted_at.to_date if version.posted_at %>
 				<% end %>
 			</li>
 			<% end %>

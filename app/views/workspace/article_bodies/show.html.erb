@@ -1,0 +1,20 @@
+<div class="preview">
+	<article>
+		<header>
+			<h1 class="entry-title"><%= "TITLE" %></h1>
+			<p class="tags">
+					<span class="label label-default">Foo</span>
+					<span class="label label-default">Bar</span>
+			</p>
+			
+			<p class="meta">
+				<% now = Time.current %>
+				<time datetime="<%= now.iso8601 %>" pubdate %><%= ordinalize(now) %></time>
+				<span class="byline author vcard">by <a class="fn"><%= 
+	@article_body.user.slug %></a></span>
+			</p>
+		</header>
+
+		<div class="entry-content"><%=raw article_content(@article_body) %></div>
+	</article>
+</div>

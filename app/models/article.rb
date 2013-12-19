@@ -5,7 +5,6 @@
 #  id                :integer          not null, primary key
 #  title             :string(255)
 #  slug              :string(255)
-#  content           :text
 #  user_id           :integer
 #  list_id           :integer
 #  created_at        :datetime
@@ -15,29 +14,52 @@
 #  revised_at        :datetime
 #  state             :string(255)
 #  posted_at         :datetime
+#  body_id           :integer
 #
 
 class Article < ActiveRecord::Base
-  belongs_to :user
   belongs_to :list
+  belongs_to :user
+
   acts_as_taggable
   symbolize :state, in: [ :draft, :published, :archived ], scopes: true, default: :draft, methods: true
   
-  has_many :attachments, as: :attachable
-  accepts_nested_attributes_for :attachments, allow_destroy: true
+  belongs_to :body, class_name: ArticleBody.to_s
+  accepts_nested_attributes_for :body
+
+  attr_accessor :editing_body_id
+  # belongs_to :editing, class_name: ArticleBody.to_s  
 
   has_many :versions, class_name: ArticleVersion.to_s, autosave: true
 
   after_initialize :ensure_assign_user_by_list
   before_save :ensure_assign_user_by_list
+
+  after_initialize :build_body, unless: ->(m) { m.body_id }
   before_save :update_posted_at
+
+  before_validation :migrate_editing_body if :editing_body_id
 
   validates :title, presence: true
   validates :state, presence: true
   validates :posted_at, presence: true, if: :published?
   
-
   scope :published, -> { state(:published).reorder(posted_at: :desc) }
+
+  def build_body
+    body = super
+    body.user_id = self.user_id if self.user_id
+    body
+  end
+
+  def migrate_editing_body
+    editing_body = self.user.article_bodies.find(self.editing_body_id)
+    self.body = editing_body
+  end
+
+  def persisted_editing!
+    ArticleBody.duplicate!(self.body)
+  end
 
   def ensure_assign_user_by_list
     self.user ||= self.list.user if self.list_id_changed?
@@ -76,16 +98,11 @@ class Article < ActiveRecord::Base
       title:     self.title,
       slug:      self.slug,
       tag_list:  self.tag_list,
-      content:   self.content,
-      posted_at: self.posted_at
+      posted_at: self.posted_at,
     )
 
-    self.attachments.each do |attachment|
-      @snapshot.attachments.build(
-        original_filename: attachment.original_filename,
-        file: attachment.file
-      )
-    end
+    @snapshot.body = ArticleBody.duplicate(self.body)
+    @snapshot
   end
 
   def snapshot_attributes=(values)

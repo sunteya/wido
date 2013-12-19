@@ -32,6 +32,8 @@ Wido2::Application.routes.draw do
     resources :articles do
       resources :attachments
     end
+
+    resources :article_bodies
   end
 
   resources :bundles
