@@ -40,6 +40,9 @@ gem 'coffee-rails', '~> 4.0.1'
 gem 'therubyracer', :platforms => :ruby
 gem 'uglifier', '>= 1.3.0'
 
+# Helper
+gem "bugsnag", "~> 1.7.0"
+
 group :development, :test do
   gem 'fume-dev'
   gem 'guard-annotate'
