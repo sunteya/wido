@@ -38,7 +38,7 @@ class Article < ActiveRecord::Base
   after_initialize :build_body, unless: ->(m) { m.body_id }
   before_save :update_posted_at
 
-  before_validation :migrate_editing_body if :editing_body_id
+  before_validation :migrate_editing_body, if: :editing_body_id
 
   validates :title, presence: true
   validates :state, presence: true

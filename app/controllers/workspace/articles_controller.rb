@@ -18,6 +18,7 @@ class Workspace::ArticlesController < Workspace::BaseController
     @article = @collection.articles.scope.new(article_params)
     @article_body = current_user.article_bodies.find(params[:article_body_id])
     @article_body.update_attributes!(article_body_params)
+    @article.editing_body_id = @article_body.id
 
     if @article.save
       flash[:notice] = 'Article was successfully created.'
