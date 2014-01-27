@@ -38,7 +38,6 @@ gem 'bootstrap-sass', '~> 3.0.2' # override rails-assets-bootstrap
 gem 'font-awesome-rails', '~> 4.0.3'
 
 # assets tools
-# gem "bower-rails", "~> 0.5.0"
 gem 'compass-rails', "~> 1.1.3"
 gem 'sass-rails', '~> 4.0.1'
 gem 'coffee-rails', '~> 4.0.1'
