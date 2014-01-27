@@ -19,7 +19,6 @@ gem "symbolize", "~> 4.4.1"
 
 # view
 gem 'simple_form', '~> 3.0.0'
-gem 'fume-nav', '~> 0.0.2'
 gem 'rack-cors', '~> 0.2.8'
 gem 'kramdown', '~> 1.2.0'
 gem 'nokogiri', '~> 1.6.0'
@@ -48,6 +47,11 @@ gem 'uglifier', '>= 1.3.0'
 # helper
 gem "bugsnag", "~> 1.7.0"
 
+
+group :doc do
+  gem 'sdoc', require: false
+end
+
 group :development, :test do
   gem 'fume-dev'
   gem 'guard-annotate'
@@ -56,9 +60,10 @@ group :development, :test do
   gem 'better_errors'
 
   # gem 'letter_opener'
+
+  gem "rspec-rails", "~> 2.14.1"
 end
 
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
+group :test do
+
 end
