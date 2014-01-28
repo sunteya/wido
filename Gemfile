@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 source "https://rails-assets.org"
 
-gem 'rails', '~> 4.0.1'
+gem 'rails', '~> 4.0.2'
 gem 'pg', '~> 0.17'
 gem 'rails-i18n', '~> 4.0.0'
 
@@ -67,6 +67,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'shoulda-matchers', '~> 2.4.0'
+  gem 'shoulda-matchers', '~> 2.5.0'
   gem 'simplecov', require: false
 end
