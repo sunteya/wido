@@ -53,8 +53,9 @@ group :doc do
 end
 
 group :development, :test do
-  gem 'fume-dev'
-  gem 'guard-annotate'
+  # gem 'fume-dev'
+  gem 'annotate', '~> 2.6.1'
+  # gem 'guard-annotate'
 
   gem 'binding_of_caller'
   gem 'better_errors'
