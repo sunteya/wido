@@ -55,6 +55,7 @@ end
 group :development, :test do
   # gem 'fume-dev'
   gem 'annotate', '~> 2.6.1'
+  gem 'pry-rails'
   # gem 'guard-annotate'
 
   gem 'binding_of_caller'

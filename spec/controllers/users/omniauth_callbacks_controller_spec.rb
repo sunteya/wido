@@ -9,8 +9,9 @@ describe Users::OmniauthCallbacksController do
     before do 
       request.env["devise.mapping"] = Devise.mappings[:user]
       request.env["omniauth.auth"] = access_token
-      post :google_oauth2
     end
+
+    do_action { post :google_oauth2 }
 
     context "then new user" do
       it { should respond_with(:redirect) }
