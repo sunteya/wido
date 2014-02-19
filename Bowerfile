@@ -1,5 +1,0 @@
-group :vendor do
-  asset "moment", "~2.4.0"
-  asset "bootstrap-datetimepicker", "Eonasdan/bootstrap-datetimepicker#dbc0ef9c22469abc59347a96cf9c8208cb599dfe"
-  asset "bootstrap-tagsinput", "~0.3.9"
-end
