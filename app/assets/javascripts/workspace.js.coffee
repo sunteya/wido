@@ -2,7 +2,7 @@
 #= require jquery_ujs
 #= require bootstrap
 #= require ./bootstrap-datetimepicker.js
-#= require bootstrap-tagsinput/dist/bootstrap-tagsinput.js
+#= require bootstrap-tagsinput
 
 jQuery ->
 	$(document).on "submit", "#link-form-modal form", (event)->
