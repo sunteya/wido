@@ -24,6 +24,7 @@
 FactoryGirl.define do
   factory :user do
     sequence(:email) { |n| "test-#{n}@gmail.com" }
+    slug { email.split("@").first }
     encrypted_password "12345678" # not null
   end
 end
