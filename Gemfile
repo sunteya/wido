@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source "https://rails-assets.org"
 
 gem 'rails', '~> 4.0.1'
 gem 'pg', '~> 0.17'
@@ -31,7 +32,7 @@ gem 'font-awesome-rails', '~> 4.0.3'
 
 # Assets
 gem "bower-rails", "~> 0.5.0"
-gem 'compass-rails', "~> 2.0.alpha.0"
+gem 'compass-rails', "~> 1.1.3"
 gem 'sass-rails', '~> 4.0.1'
 gem 'coffee-rails', '~> 4.0.1'
 gem 'therubyracer', :platforms => :ruby
