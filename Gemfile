@@ -55,11 +55,13 @@ group :development, :test do
   # gem "timecop", "~> 0.7.0"
   
   gem "factory_girl_rails", "~> 4.4.0"
-  gem "ffaker", "~> 1.23.0"
+  # gem "ffaker", "~> 1.23.0"
+  gem "faker", "~> 1.3.0"
   gem "rspec-rails", "~> 2.14.2"
 end
 
 group :test do
   gem "shoulda-matchers", "~> 2.5.0"
+  gem "rspec-do_action", "~> 0.0.3"
   gem "simplecov", require: false
 end

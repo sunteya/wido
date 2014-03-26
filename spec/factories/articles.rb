@@ -21,6 +21,14 @@
 
 FactoryGirl.define do
   factory :article do
-    
+    title { Faker::Lorem.sentence }
+    association :body, factory: :article_body
+
+    trait :published do
+      slug { Faker::Internet.slug }
+      published_at { Time.current }
+      posted_at { published_at }
+      state :published
+    end
   end
 end

@@ -11,7 +11,7 @@ describe Users::OmniauthCallbacksController do
       request.env["omniauth.auth"] = access_token
     end
 
-    do_action { post :google_oauth2 }
+    action { post :google_oauth2 }
 
     context "then new user" do
       it { should respond_with(:redirect) }

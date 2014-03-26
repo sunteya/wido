@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Users::ProfilesController do
   describe "GET edit" do
-    do_action { get :edit }
+    action { get :edit }
 
     it_behaves_like "require user sign_in" do
       it { should respond_with(:success) }
@@ -11,7 +11,7 @@ describe Users::ProfilesController do
 
   describe "PUT update" do
     let(:attributes) { Hash.new }
-    do_action { put :update, { user: attributes } }
+    action { put :update, { user: attributes } }
 
     it_behaves_like "require user sign_in" do
       let(:user) { current_user }
