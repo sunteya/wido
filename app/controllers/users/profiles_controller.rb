@@ -1,5 +1,6 @@
 class Users::ProfilesController < ApplicationController
   layout "users"
+  before_filter :authenticate_user!
 
   def edit
     @user = current_user
