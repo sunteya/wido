@@ -1,10 +1,9 @@
 source "https://rubygems.org"
 source "https://rails-assets.org"
 
-gem "rails", "~> 4.0.2"
+gem "rails", "~> 4.0.4"
 gem "pg", "~> 0.17"
-gem "rails-i18n", "~> 4.0.0"
-
+gem "fume", "~> 0.10.0"
 
 # model
 gem "acts-as-taggable-on", "~> 2.4.1"
